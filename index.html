@@ -52,6 +52,16 @@
         <header>
             <h1>🧮 Mental Math Trainer</h1>
             <p>Sharpen your math skills with daily practice!</p>
+
+            <!-- STREAK DISPLAY -->
+            <div class="streak-header">
+                <div class="streak-flame" id="streak-flame">
+                    <span class="flame-icon" id="flame-icon">🔥</span>
+                    <span class="streak-count" id="streak-count">0</span>
+                    <span class="streak-label">Day Streak</span>
+                </div>
+            </div>
+
             <div class="xp-bar-container">
                 <div class="xp-info">
                     <span id="player-level">🏅 Level 1</span>
@@ -85,6 +95,11 @@
                 <h3>Math Games</h3>
                 <p>Fun challenges & puzzles</p>
             </a>
+            <a href="#" class="nav-card" onclick="showSection('streak')">
+                <span class="icon">🔥</span>
+                <h3>Daily Streak</h3>
+                <p>Keep your streak alive!</p>
+            </a>
             <a href="#" class="nav-card" onclick="showSection('stats')">
                 <span class="icon">📈</span>
                 <h3>Your Stats</h3>
@@ -105,7 +120,6 @@
         <!-- ==================== PRACTICE SECTION ==================== -->
         <section id="practice" class="section hidden">
             <h2>⚡ Practice Mode</h2>
-
             <div class="settings-panel">
                 <div class="setting-group">
                     <label>Operation:</label>
@@ -118,7 +132,6 @@
                         <button class="op-btn" data-op="mix" onclick="setOperation('mix')">🔀 Mixed</button>
                     </div>
                 </div>
-
                 <div class="setting-group">
                     <label>Difficulty:</label>
                     <div class="btn-group">
@@ -127,7 +140,6 @@
                         <button class="diff-btn" data-diff="hard" onclick="setDifficulty('hard')">🔴 Hard</button>
                     </div>
                 </div>
-
                 <div class="setting-group">
                     <label>Questions:</label>
                     <div class="btn-group">
@@ -138,19 +150,16 @@
                     </div>
                 </div>
             </div>
-
             <div class="quiz-area">
                 <div class="timer-bar">
                     <span id="timer">⏱️ 0:00</span>
                     <span id="question-counter">Q: 0 / 10</span>
                     <span id="score-display">Score: 0 | Streak: 0 🔥</span>
                 </div>
-
                 <div class="question-card">
                     <div id="operation-badge" class="operation-badge">➕ Addition</div>
                     <p id="question" class="question-text">Press Start to Begin!</p>
-                    <input type="number" id="answer-input" placeholder="Your answer..."
-                           onkeypress="if(event.key==='Enter') checkAnswer()" disabled>
+                    <input type="number" id="answer-input" placeholder="Your answer..." onkeypress="if(event.key==='Enter') checkAnswer()" disabled>
                     <div class="quiz-buttons">
                         <button id="start-btn" class="btn-start" onclick="startQuiz()">▶️ Start Quiz</button>
                         <button id="stop-btn" class="btn-stop" onclick="stopQuiz()" disabled>⏹️ Stop Quiz</button>
@@ -158,18 +167,13 @@
                         <button id="skip-btn" class="btn-skip" onclick="skipQuestion()" disabled>⏭️ Skip</button>
                     </div>
                 </div>
-
                 <div id="feedback" class="feedback"></div>
-
-                <!-- Progress Bar -->
                 <div class="progress-container" id="progress-container" style="display:none;">
                     <div class="progress-bar">
                         <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                     </div>
                     <span id="progress-text" class="progress-text">0%</span>
                 </div>
-
-                <!-- Results -->
                 <div id="results" class="results hidden">
                     <h3>🏆 Session Results</h3>
                     <div class="results-grid">
@@ -206,7 +210,6 @@
         <!-- ==================== TABLES SECTION ==================== -->
         <section id="tables" class="section hidden">
             <h2>📊 Tables Chart (1 - 35)</h2>
-
             <div class="table-controls">
                 <div class="control-group">
                     <label>From:</label>
@@ -253,19 +256,13 @@
                     </select>
                 </div>
             </div>
-
-            <!-- Search & Print -->
             <div class="table-actions">
                 <div class="table-search">
-                    <input type="text" id="table-search-input" placeholder="🔍 Search a specific table (e.g., 17)"
-                           onkeyup="searchTable()">
+                    <input type="text" id="table-search-input" placeholder="🔍 Search a specific table (e.g., 17)" onkeyup="searchTable()">
                 </div>
                 <button class="print-btn" onclick="printTables()">🖨️ Print Tables</button>
             </div>
-
             <div id="tables-container" class="tables-grid"></div>
-
-            <!-- Quick Reference Grid -->
             <h2 style="margin-top:40px;">📋 Quick Reference Grid</h2>
             <div class="ref-grid-controls">
                 <label>Grid Size:</label>
@@ -283,8 +280,6 @@
         <!-- ==================== EXPONENTS SECTION ==================== -->
         <section id="exponents" class="section hidden">
             <h2>📐 Laws of Exponents</h2>
-
-            <!-- Laws Reference -->
             <div class="exponent-laws">
                 <div class="law-card">
                     <h3>Product Rule</h3>
@@ -327,18 +322,13 @@
                     <p class="law-example">Example: 27<sup>1/3</sup> = ³√27 = 3</p>
                 </div>
             </div>
-
-            <!-- Powers Reference Table -->
             <h3 style="margin-top:30px; color:#ffd200;">📋 Powers Reference Table</h3>
             <div id="powers-table" class="reference-grid-container"></div>
-
-            <!-- Exponent Practice -->
             <h3 style="margin-top:30px; color:#ffd200;">🎯 Exponent Practice</h3>
             <div class="expo-practice">
                 <div class="expo-quiz-card">
                     <p id="expo-question" class="question-text">Click Start to Practice!</p>
-                    <input type="number" id="expo-answer" placeholder="Your answer..."
-                           onkeypress="if(event.key==='Enter') checkExpoAnswer()" disabled>
+                    <input type="number" id="expo-answer" placeholder="Your answer..." onkeypress="if(event.key==='Enter') checkExpoAnswer()" disabled>
                     <div class="quiz-buttons">
                         <button class="btn-start" id="expo-start-btn" onclick="startExpoPractice()">▶️ Start</button>
                         <button class="btn-stop" id="expo-stop-btn" onclick="stopExpoPractice()" disabled>⏹️ Stop</button>
@@ -353,7 +343,6 @@
         <!-- ==================== GAMES SECTION ==================== -->
         <section id="games" class="section hidden">
             <h2>🎮 Math Games Arena</h2>
-
             <div class="games-grid">
                 <div class="game-card" onclick="showSection('speed-game')">
                     <div class="game-icon">⚡</div>
@@ -361,35 +350,30 @@
                     <p>Answer as many questions as possible in 60 seconds!</p>
                     <span class="game-difficulty easy-tag">Easy - Hard</span>
                 </div>
-
                 <div class="game-card" onclick="showSection('chain-game')">
                     <div class="game-icon">🔗</div>
                     <h3>Number Chain</h3>
                     <p>Each answer becomes part of the next question!</p>
                     <span class="game-difficulty medium-tag">Medium</span>
                 </div>
-
                 <div class="game-card" onclick="showSection('truefalse-game')">
                     <div class="game-icon">✅❌</div>
                     <h3>True or False</h3>
                     <p>Is the equation correct? Quick reaction time!</p>
                     <span class="game-difficulty easy-tag">Easy</span>
                 </div>
-
                 <div class="game-card" onclick="showSection('missing-game')">
                     <div class="game-icon">❓</div>
                     <h3>Missing Number</h3>
                     <p>Find the missing number in the equation!</p>
                     <span class="game-difficulty medium-tag">Medium</span>
                 </div>
-
                 <div class="game-card" onclick="showSection('duel-game')">
                     <div class="game-icon">⚔️</div>
                     <h3>Beat the Clock</h3>
                     <p>Each correct answer adds time. Wrong = lose time!</p>
                     <span class="game-difficulty hard-tag">Hard</span>
                 </div>
-
                 <div class="game-card" onclick="showSection('estimation-game')">
                     <div class="game-icon">🎯</div>
                     <h3>Estimation Master</h3>
@@ -404,9 +388,7 @@
             <button class="back-btn" onclick="showSection('games')">← Back to Games</button>
             <h2>⚡ Speed Round - 60 Seconds!</h2>
             <div class="game-play-area">
-                <div class="speed-timer-bar">
-                    <div class="speed-timer-fill" id="speed-timer-fill"></div>
-                </div>
+                <div class="speed-timer-bar"><div class="speed-timer-fill" id="speed-timer-fill"></div></div>
                 <div class="speed-stats">
                     <span id="speed-time-left">⏱️ 60s</span>
                     <span id="speed-score">Score: 0</span>
@@ -414,8 +396,7 @@
                 </div>
                 <div class="question-card">
                     <p id="speed-question" class="question-text">Press Start!</p>
-                    <input type="number" id="speed-answer" placeholder="Answer..."
-                           onkeypress="if(event.key==='Enter') checkSpeedAnswer()" disabled>
+                    <input type="number" id="speed-answer" placeholder="Answer..." onkeypress="if(event.key==='Enter') checkSpeedAnswer()" disabled>
                     <div class="quiz-buttons">
                         <button class="btn-start" id="speed-start-btn" onclick="startSpeedGame()">▶️ Start</button>
                         <button class="btn-stop" id="speed-stop-btn" onclick="stopSpeedGame()" disabled>⏹️ Stop</button>
@@ -438,8 +419,7 @@
                 </div>
                 <div class="question-card">
                     <p id="chain-question" class="question-text">Press Start!</p>
-                    <input type="number" id="chain-answer" placeholder="Answer..."
-                           onkeypress="if(event.key==='Enter') checkChainAnswer()" disabled>
+                    <input type="number" id="chain-answer" placeholder="Answer..." onkeypress="if(event.key==='Enter') checkChainAnswer()" disabled>
                     <div class="quiz-buttons">
                         <button class="btn-start" id="chain-start-btn" onclick="startChainGame()">▶️ Start</button>
                         <button class="btn-stop" id="chain-stop-btn" onclick="stopChainGame()" disabled>⏹️ Stop</button>
@@ -488,8 +468,7 @@
                 </div>
                 <div class="question-card">
                     <p id="missing-question" class="question-text">Press Start!</p>
-                    <input type="number" id="missing-answer" placeholder="Missing number..."
-                           onkeypress="if(event.key==='Enter') checkMissingAnswer()" disabled>
+                    <input type="number" id="missing-answer" placeholder="Missing number..." onkeypress="if(event.key==='Enter') checkMissingAnswer()" disabled>
                     <div class="quiz-buttons">
                         <button class="btn-start" id="missing-start-btn" onclick="startMissingGame()">▶️ Start</button>
                         <button class="btn-stop" id="missing-stop-btn" onclick="stopMissingGame()" disabled>⏹️ Stop</button>
@@ -506,9 +485,7 @@
             <h2>⚔️ Beat the Clock</h2>
             <p class="game-description">Start with 30 seconds. Correct = +3s, Wrong = -5s. Survive!</p>
             <div class="game-play-area">
-                <div class="duel-timer-bar">
-                    <div class="duel-timer-fill" id="duel-timer-fill"></div>
-                </div>
+                <div class="duel-timer-bar"><div class="duel-timer-fill" id="duel-timer-fill"></div></div>
                 <div class="duel-stats">
                     <span id="duel-time">⏱️ 30.0s</span>
                     <span id="duel-score">Score: 0</span>
@@ -516,8 +493,7 @@
                 </div>
                 <div class="question-card">
                     <p id="duel-question" class="question-text">Press Start!</p>
-                    <input type="number" id="duel-answer" placeholder="Answer..."
-                           onkeypress="if(event.key==='Enter') checkDuelAnswer()" disabled>
+                    <input type="number" id="duel-answer" placeholder="Answer..." onkeypress="if(event.key==='Enter') checkDuelAnswer()" disabled>
                     <div class="quiz-buttons">
                         <button class="btn-start" id="duel-start-btn" onclick="startDuelGame()">▶️ Start</button>
                         <button class="btn-stop" id="duel-stop-btn" onclick="stopDuelGame()" disabled>⏹️ Stop</button>
@@ -540,8 +516,7 @@
                 </div>
                 <div class="question-card">
                     <p id="est-question" class="question-text">Press Start!</p>
-                    <input type="number" id="est-answer" placeholder="Your estimate..."
-                           onkeypress="if(event.key==='Enter') checkEstAnswer()" disabled>
+                    <input type="number" id="est-answer" placeholder="Your estimate..." onkeypress="if(event.key==='Enter') checkEstAnswer()" disabled>
                     <div class="quiz-buttons">
                         <button class="btn-start" id="est-start-btn" onclick="startEstGame()">▶️ Start</button>
                         <button class="btn-stop" id="est-stop-btn" onclick="stopEstGame()" disabled>⏹️ Stop</button>
@@ -553,34 +528,67 @@
             </div>
         </section>
 
+        <!-- ==================== STREAK SECTION ==================== -->
+        <section id="streak" class="section hidden">
+            <h2>🔥 Daily Login Streak</h2>
+            <div class="streak-hero">
+                <div class="streak-hero-flame">
+                    <span id="streak-hero-icon">🔥</span>
+                    <span class="streak-hero-count" id="streak-hero-count">0</span>
+                </div>
+                <h3 id="streak-hero-label">Day Streak</h3>
+                <p id="streak-hero-message">Login every day to build your streak!</p>
+            </div>
+            <div class="streak-stats-grid">
+                <div class="streak-stat-card">
+                    <h4>🔥 Current Streak</h4>
+                    <span id="streak-current">0 days</span>
+                </div>
+                <div class="streak-stat-card">
+                    <h4>🏆 Best Streak</h4>
+                    <span id="streak-best">0 days</span>
+                </div>
+                <div class="streak-stat-card">
+                    <h4>📅 Total Logins</h4>
+                    <span id="streak-total-logins">0 days</span>
+                </div>
+                <div class="streak-stat-card">
+                    <h4>⚡ Today's Bonus XP</h4>
+                    <span id="streak-bonus-xp">0 XP</span>
+                </div>
+                <div class="streak-stat-card">
+                    <h4>🛡️ Streak Freezes</h4>
+                    <span id="streak-freezes">0 left</span>
+                </div>
+                <div class="streak-stat-card">
+                    <h4>📆 Last Login</h4>
+                    <span id="streak-last-login">Never</span>
+                </div>
+            </div>
+            <h3 style="color:#ffd200; margin-top:30px; margin-bottom:15px;">🎯 Streak Milestones</h3>
+            <div class="milestones-grid" id="milestones-container"></div>
+            <h3 style="color:#ffd200; margin-top:30px; margin-bottom:15px;">📅 Login Calendar (Last 30 Days)</h3>
+            <div class="streak-calendar" id="streak-calendar"></div>
+            <div class="streak-tips">
+                <h3>💡 Streak Tips</h3>
+                <div class="tip-item">🔥 Login every day to keep your streak going</div>
+                <div class="tip-item">⚡ Earn bonus XP based on your current streak day</div>
+                <div class="tip-item">🛡️ Earn streak freezes at milestones to protect your streak</div>
+                <div class="tip-item">🏆 Reach milestone days to unlock special rewards</div>
+                <div class="tip-item">📅 Your streak resets if you miss a day (unless you have a freeze)</div>
+            </div>
+        </section>
+
         <!-- ==================== STATS SECTION ==================== -->
         <section id="stats" class="section hidden">
             <h2>📈 Your Statistics</h2>
             <div class="stats-grid">
-                <div class="stat-card">
-                    <h4>Total Questions</h4>
-                    <span id="stat-total">0</span>
-                </div>
-                <div class="stat-card">
-                    <h4>Overall Accuracy</h4>
-                    <span id="stat-accuracy">0%</span>
-                </div>
-                <div class="stat-card">
-                    <h4>Best Streak</h4>
-                    <span id="stat-streak">0</span>
-                </div>
-                <div class="stat-card">
-                    <h4>Sessions Played</h4>
-                    <span id="stat-sessions">0</span>
-                </div>
-                <div class="stat-card">
-                    <h4>Total XP</h4>
-                    <span id="stat-xp">0</span>
-                </div>
-                <div class="stat-card">
-                    <h4>Current Level</h4>
-                    <span id="stat-level">1</span>
-                </div>
+                <div class="stat-card"><h4>Total Questions</h4><span id="stat-total">0</span></div>
+                <div class="stat-card"><h4>Overall Accuracy</h4><span id="stat-accuracy">0%</span></div>
+                <div class="stat-card"><h4>Best Streak</h4><span id="stat-streak">0</span></div>
+                <div class="stat-card"><h4>Sessions Played</h4><span id="stat-sessions">0</span></div>
+                <div class="stat-card"><h4>Total XP</h4><span id="stat-xp">0</span></div>
+                <div class="stat-card"><h4>Current Level</h4><span id="stat-level">1</span></div>
             </div>
             <button onclick="clearStats()" class="danger-btn">🗑️ Reset All Stats</button>
         </section>
@@ -595,80 +603,41 @@
         <section id="changelog" class="section hidden">
             <h2>📋 Update Log & Version History</h2>
             <p class="changelog-subtitle">Track every update and improvement made to Mental Math Trainer</p>
-
             <div class="current-version-badge">
-                <span class="version-number">v3.1.0</span>
+                <span class="version-number">v3.2.0</span>
                 <span class="version-label">Current Version</span>
             </div>
-
-            <!-- Version Timeline -->
             <div class="changelog-timeline">
-
-                <!-- v3.1.0 -->
                 <div class="version-block latest">
                     <div class="version-header">
-                        <div class="version-tag">v3.1.0</div>
-                        <div class="version-title">Polish & UX Improvements</div>
+                        <div class="version-tag">v3.2.0</div>
+                        <div class="version-title">Daily Login Streak System</div>
                         <div class="version-date">📅 16 September 2026</div>
                         <span class="version-badge latest-badge">🟢 Latest</span>
                     </div>
                     <div class="commit-list">
-                        <div class="commit-item">
-                            <span class="commit-icon">🔊</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: add sound effects with toggle for correct, wrong, and level up</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
-                        <div class="commit-item">
-                            <span class="commit-icon">✨</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: add confetti animation on streaks and level ups</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
-                        <div class="commit-item">
-                            <span class="commit-icon">⏳</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: add loading screen with animated logo</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
-                        <div class="commit-item">
-                            <span class="commit-icon">🖨️</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: add print tables feature for offline study</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
-                        <div class="commit-item">
-                            <span class="commit-icon">⚠️</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: add exit warning when quiz is active</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
-                        <div class="commit-item">
-                            <span class="commit-icon">⌨️</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: add keyboard shortcuts info panel</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
-                        <div class="commit-item">
-                            <span class="commit-icon">🌐</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: add favicon and social media meta tags</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
-                        <div class="commit-item">
-                            <span class="commit-icon">💄</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">style: add smooth scroll, fade animations, footer, and button effects</code>
-                                <span class="commit-type style-type">style</span>
-                            </div>
-                        </div>
+                        <div class="commit-item"><span class="commit-icon">🔥</span><div class="commit-info"><code class="commit-msg">feat: add daily login streak system with calendar and milestones</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">🛡️</span><div class="commit-info"><code class="commit-msg">feat: add streak freeze protection earned through milestones</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">🏆</span><div class="commit-info"><code class="commit-msg">feat: add 9 streak achievement badges</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">💬</span><div class="commit-info"><code class="commit-msg">feat: add streak login popup with welcome states</code><span class="commit-type feat-type">feature</span></div></div>
+                    </div>
+                    <div class="version-summary">
+                        <div class="summary-stat added">✨ 4 Added</div>
+                        <div class="summary-stat changed">🔧 1 Changed</div>
+                        <div class="summary-stat fixed">🐛 0 Fixed</div>
+                    </div>
+                </div>
+                <div class="version-block">
+                    <div class="version-header">
+                        <div class="version-tag">v3.1.0</div>
+                        <div class="version-title">Polish & UX Improvements</div>
+                        <div class="version-date">📅 16 September 2026</div>
+                        <span class="version-badge major-badge">🔵 Minor</span>
+                    </div>
+                    <div class="commit-list">
+                        <div class="commit-item"><span class="commit-icon">🔊</span><div class="commit-info"><code class="commit-msg">feat: add sound effects with toggle</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">✨</span><div class="commit-info"><code class="commit-msg">feat: add confetti animations</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">⏳</span><div class="commit-info"><code class="commit-msg">feat: add loading screen, print tables, exit warning, shortcuts</code><span class="commit-type feat-type">feature</span></div></div>
                     </div>
                     <div class="version-summary">
                         <div class="summary-stat added">✨ 7 Added</div>
@@ -676,8 +645,6 @@
                         <div class="summary-stat fixed">🐛 0 Fixed</div>
                     </div>
                 </div>
-
-                <!-- v3.0.0 -->
                 <div class="version-block">
                     <div class="version-header">
                         <div class="version-tag">v3.0.0</div>
@@ -686,27 +653,8 @@
                         <span class="version-badge major-badge">🔵 Major</span>
                     </div>
                     <div class="commit-list">
-                        <div class="commit-item">
-                            <span class="commit-icon">📱</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: add PWA support with manifest.json and service worker</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
-                        <div class="commit-item">
-                            <span class="commit-icon">📋</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: add in-app update log page with version timeline</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
-                        <div class="commit-item">
-                            <span class="commit-icon">📄</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">docs: add CHANGELOG.md and README.md</code>
-                                <span class="commit-type docs-type">docs</span>
-                            </div>
-                        </div>
+                        <div class="commit-item"><span class="commit-icon">📱</span><div class="commit-info"><code class="commit-msg">feat: add PWA support with manifest and service worker</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">📋</span><div class="commit-info"><code class="commit-msg">feat: add in-app update log and documentation</code><span class="commit-type feat-type">feature</span></div></div>
                     </div>
                     <div class="version-summary">
                         <div class="summary-stat added">✨ 3 Added</div>
@@ -714,8 +662,6 @@
                         <div class="summary-stat fixed">🐛 0 Fixed</div>
                     </div>
                 </div>
-
-                <!-- v2.0.0 -->
                 <div class="version-block">
                     <div class="version-header">
                         <div class="version-tag">v2.0.0</div>
@@ -724,50 +670,14 @@
                         <span class="version-badge major-badge">🔵 Major</span>
                     </div>
                     <div class="commit-list">
-                        <div class="commit-item">
-                            <span class="commit-icon">🎮</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: add 6 math games (speed, chain, tf, missing, duel, estimation)</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
-                        <div class="commit-item">
-                            <span class="commit-icon">📐</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: add laws of exponents with practice mode</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
-                        <div class="commit-item">
-                            <span class="commit-icon">🏆</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: add XP/level system and 15 achievement badges</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
-                        <div class="commit-item">
-                            <span class="commit-icon">📊</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: extend tables to 35 with search and configurable grid</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
-                        <div class="commit-item">
-                            <span class="commit-icon">⏹️</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">feat: add stop quiz button and ESC shortcut</code>
-                                <span class="commit-type feat-type">feature</span>
-                            </div>
-                        </div>
+                        <div class="commit-item"><span class="commit-icon">🎮</span><div class="commit-info"><code class="commit-msg">feat: add 6 games, exponents, XP system, badges, tables to 35</code><span class="commit-type feat-type">feature</span></div></div>
                     </div>
                     <div class="version-summary">
-                        <div class="summary-stat added">✨ 5 Added</div>
+                        <div class="summary-stat added">✨ 8 Added</div>
                         <div class="summary-stat changed">🔧 1 Changed</div>
                         <div class="summary-stat fixed">🐛 1 Fixed</div>
                     </div>
                 </div>
-
-                <!-- v1.0.0 -->
                 <div class="version-block">
                     <div class="version-header">
                         <div class="version-tag">v1.0.0</div>
@@ -776,13 +686,7 @@
                         <span class="version-badge initial-badge">🟣 Initial</span>
                     </div>
                     <div class="commit-list">
-                        <div class="commit-item">
-                            <span class="commit-icon">🚀</span>
-                            <div class="commit-info">
-                                <code class="commit-msg">init: project setup with practice mode, tables, scoring, and responsive UI</code>
-                                <span class="commit-type feat-type">init</span>
-                            </div>
-                        </div>
+                        <div class="commit-item"><span class="commit-icon">🚀</span><div class="commit-info"><code class="commit-msg">init: project setup with practice, tables, scoring, responsive UI</code><span class="commit-type feat-type">init</span></div></div>
                     </div>
                     <div class="version-summary">
                         <div class="summary-stat added">✨ 7 Added</div>
@@ -790,65 +694,22 @@
                         <div class="summary-stat fixed">🐛 0 Fixed</div>
                     </div>
                 </div>
-
             </div>
-
-            <!-- Upcoming -->
             <div class="upcoming-section">
                 <h3>🔮 Coming Soon - v4.0.0</h3>
                 <div class="upcoming-list">
                     <div class="upcoming-item">🌙 Dark/Light theme toggle</div>
                     <div class="upcoming-item">📊 Chart.js progress visualization</div>
-                    <div class="upcoming-item">🏅 Daily challenges with streak rewards</div>
                     <div class="upcoming-item">🧮 Fractions & percentages practice</div>
                     <div class="upcoming-item">🔢 Square roots & cube roots</div>
                     <div class="upcoming-item">👥 Multiplayer mode</div>
-                </div>
-            </div>
-
-            <!-- Commit Convention Guide -->
-            <div class="commit-guide">
-                <h3>📝 Commit Message Convention</h3>
-                <div class="convention-grid">
-                    <div class="convention-item">
-                        <code>feat:</code>
-                        <span>New feature added</span>
-                    </div>
-                    <div class="convention-item">
-                        <code>fix:</code>
-                        <span>Bug fix</span>
-                    </div>
-                    <div class="convention-item">
-                        <code>style:</code>
-                        <span>UI/CSS changes</span>
-                    </div>
-                    <div class="convention-item">
-                        <code>docs:</code>
-                        <span>Documentation updates</span>
-                    </div>
-                    <div class="convention-item">
-                        <code>refactor:</code>
-                        <span>Code restructuring</span>
-                    </div>
-                    <div class="convention-item">
-                        <code>deploy:</code>
-                        <span>Deployment related</span>
-                    </div>
-                    <div class="convention-item">
-                        <code>perf:</code>
-                        <span>Performance improvement</span>
-                    </div>
-                    <div class="convention-item">
-                        <code>test:</code>
-                        <span>Testing related</span>
-                    </div>
                 </div>
             </div>
         </section>
 
         <!-- FOOTER -->
         <footer class="app-footer">
-            <p>🧮 Mental Math Trainer v3.1.0</p>
+            <p>🧮 Mental Math Trainer v3.2.0</p>
             <p>Made with ❤️ for math lovers</p>
             <div class="footer-links">
                 <a href="https://github.com/YOUR_USERNAME/mental-math-trainer" target="_blank">📂 GitHub</a>
@@ -861,25 +722,33 @@
 
     </div>
 
+    <!-- LOGIN STREAK POPUP -->
+    <div id="streak-popup" class="streak-popup hidden">
+        <div class="streak-popup-content">
+            <button class="streak-popup-close" onclick="closeStreakPopup()">✕</button>
+            <div class="streak-popup-icon" id="streak-popup-icon">🔥</div>
+            <h2 id="streak-popup-title">Welcome Back!</h2>
+            <p id="streak-popup-message">Your streak is growing!</p>
+            <div class="streak-popup-count">
+                <span id="streak-popup-count">0</span>
+                <span>Day Streak</span>
+            </div>
+            <div id="streak-popup-reward" class="streak-popup-reward"></div>
+            <button class="btn-start" onclick="closeStreakPopup()">🎯 Let's Practice!</button>
+        </div>
+    </div>
+
     <!-- KEYBOARD SHORTCUTS PANEL -->
     <button class="shortcuts-toggle" onclick="toggleShortcuts()">⌨️</button>
     <div id="shortcuts-panel" class="shortcuts-panel hidden">
         <h3>⌨️ Keyboard Shortcuts</h3>
         <div class="shortcut-list">
-            <div class="shortcut-item">
-                <kbd>Enter</kbd>
-                <span>Submit answer</span>
-            </div>
-            <div class="shortcut-item">
-                <kbd>Escape</kbd>
-                <span>Stop any quiz or game</span>
-            </div>
+            <div class="shortcut-item"><kbd>Enter</kbd><span>Submit answer</span></div>
+            <div class="shortcut-item"><kbd>Escape</kbd><span>Stop any quiz or game</span></div>
         </div>
     </div>
 
     <script src="script.js"></script>
-
-    <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js')
@@ -887,6 +756,5 @@
                 .catch(err => console.log('❌ Service Worker failed:', err));
         }
     </script>
-
 </body>
 </html>
