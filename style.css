@@ -21,7 +21,7 @@ body {
 /* ===== HEADER ===== */
 header {
     text-align: center;
-    padding: 40px 0 30px;
+    padding: 30px 0 20px;
 }
 
 header h1 {
@@ -38,19 +38,55 @@ header p {
     margin-top: 8px;
 }
 
+/* ===== XP BAR ===== */
+.xp-bar-container {
+    max-width: 400px;
+    margin: 15px auto 0;
+}
+
+.xp-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+}
+
+#player-level {
+    color: #ffd200;
+    font-weight: 700;
+}
+
+#player-xp {
+    color: #aaa;
+}
+
+.xp-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.xp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f7971e, #ffd200);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
 /* ===== NAVIGATION CARDS ===== */
 .main-nav {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-bottom: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
 .nav-card {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 16px;
-    padding: 30px 20px;
+    padding: 25px 15px;
     text-align: center;
     text-decoration: none;
     color: white;
@@ -65,19 +101,20 @@ header p {
 }
 
 .nav-card .icon {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .nav-card h3 {
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     color: #ffd200;
+    font-size: 1rem;
 }
 
 .nav-card p {
     color: #aaa;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 /* ===== SECTIONS ===== */
@@ -90,7 +127,7 @@ header p {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .section h2 {
@@ -109,7 +146,7 @@ header p {
 
 .setting-group {
     flex: 1;
-    min-width: 250px;
+    min-width: 220px;
 }
 
 .setting-group label {
@@ -125,26 +162,38 @@ header p {
     gap: 8px;
 }
 
-.op-btn, .diff-btn {
-    padding: 10px 18px;
+.op-btn, .diff-btn, .ques-btn {
+    padding: 10px 16px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     background: rgba(255, 255, 255, 0.08);
     color: white;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
-.op-btn:hover, .diff-btn:hover {
+.op-btn:hover, .diff-btn:hover, .ques-btn:hover {
     background: rgba(255, 255, 255, 0.15);
 }
 
-.op-btn.active, .diff-btn.active {
+.op-btn.active, .diff-btn.active, .ques-btn.active {
     background: #f7971e;
     border-color: #f7971e;
     color: #000;
     font-weight: 700;
+}
+
+/* ===== OPERATION BADGE ===== */
+.operation-badge {
+    display: inline-block;
+    padding: 5px 15px;
+    background: rgba(247, 151, 30, 0.2);
+    border: 1px solid #f7971e;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #ffd200;
+    margin-bottom: 15px;
 }
 
 /* ===== QUIZ AREA ===== */
@@ -152,27 +201,29 @@ header p {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-bottom: 20px;
     padding: 12px 20px;
     background: rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .question-card {
     text-align: center;
-    padding: 30px;
+    padding: 25px;
 }
 
 .question-text {
-    font-size: 2.8rem;
+    font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 25px;
     color: #fff;
-    letter-spacing: 4px;
+    letter-spacing: 3px;
 }
 
-#answer-input {
+#answer-input, #speed-answer, #chain-answer, #expo-answer, #missing-answer, #duel-answer, #est-answer {
     width: 220px;
     padding: 15px 20px;
     font-size: 1.5rem;
@@ -185,64 +236,105 @@ header p {
     transition: border-color 0.3s;
 }
 
-#answer-input:focus {
-    border-color: #ffd200;
+input:focus {
+    border-color: #ffd200 !important;
 }
 
-#answer-input:disabled {
+input:disabled {
     opacity: 0.5;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .quiz-buttons {
     margin-top: 20px;
     display: flex;
     justify-content: center;
-    gap: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.quiz-buttons button {
-    padding: 12px 28px;
+.quiz-buttons button, .btn-start, .btn-stop, .btn-submit, .btn-skip {
+    padding: 12px 24px;
     border: none;
     border-radius: 10px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     cursor: pointer;
     font-weight: 600;
     transition: all 0.2s;
 }
 
-#start-btn {
+.btn-start {
     background: linear-gradient(135deg, #56ab2f, #a8e063);
     color: #000;
 }
 
-#submit-btn {
+.btn-stop {
+    background: linear-gradient(135deg, #e53935, #ff6b6b);
+    color: #fff;
+}
+
+.btn-submit {
     background: linear-gradient(135deg, #f7971e, #ffd200);
     color: #000;
 }
 
-#skip-btn {
+.btn-skip {
     background: rgba(255, 255, 255, 0.15);
     color: white;
 }
 
-.quiz-buttons button:hover {
+button:hover {
     transform: scale(1.05);
 }
 
-.quiz-buttons button:disabled {
+button:disabled {
     opacity: 0.4;
     cursor: not-allowed;
-    transform: none;
+    transform: none !important;
+}
+
+/* ===== PROGRESS BAR ===== */
+.progress-container {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #56ab2f, #a8e063);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 0.9rem;
+    color: #aaa;
+    min-width: 40px;
 }
 
 /* ===== FEEDBACK ===== */
 .feedback {
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     padding: 10px;
     margin-top: 15px;
     border-radius: 10px;
-    min-height: 50px;
+    min-height: 45px;
     font-weight: 600;
 }
 
@@ -258,7 +350,7 @@ header p {
 
 /* ===== RESULTS ===== */
 .results {
-    margin-top: 30px;
+    margin-top: 25px;
     padding: 25px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
@@ -273,70 +365,110 @@ header p {
 .results-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 15px;
+    gap: 12px;
 }
 
 .result-item {
     text-align: center;
-    padding: 15px;
+    padding: 15px 10px;
     background: rgba(255, 255, 255, 0.08);
     border-radius: 10px;
 }
 
+.correct-bg { border-left: 3px solid #a8e063; }
+.wrong-bg { border-left: 3px solid #ff6b6b; }
+
 .result-label {
     display: block;
     color: #aaa;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     margin-bottom: 5px;
 }
 
 .result-value {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: #ffd200;
 }
 
-/* ===== TABLES SECTION ===== */
+/* ===== TABLES ===== */
 .table-controls {
-    margin-bottom: 25px;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: flex-end;
 }
 
-.table-controls select {
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.control-group label {
+    color: #ccc;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.table-controls select, .ref-grid-controls select {
     padding: 8px 12px;
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    font-size: 1rem;
+    font-size: 0.95rem;
 }
 
-.table-controls select option {
+select option {
     background: #302b63;
     color: white;
 }
 
+.table-search {
+    margin-bottom: 20px;
+}
+
+.table-search input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+.table-search input:focus {
+    border-color: #ffd200;
+}
+
 .tables-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
 }
 
 .table-card {
     background: rgba(255, 255, 255, 0.08);
     border-radius: 12px;
-    padding: 20px;
+    padding: 18px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s;
+}
+
+.table-card:hover {
+    transform: scale(1.02);
 }
 
 .table-card h3 {
     text-align: center;
     color: #ffd200;
-    margin-bottom: 12px;
-    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
 }
 
 .table-card table {
@@ -345,8 +477,8 @@ header p {
 }
 
 .table-card td {
-    padding: 6px 10px;
-    font-size: 0.95rem;
+    padding: 4px 8px;
+    font-size: 0.88rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -357,64 +489,274 @@ header p {
 }
 
 /* ===== REFERENCE GRID ===== */
+.ref-grid-controls {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ref-grid-controls label {
+    color: #ccc;
+}
+
 .reference-grid-container {
     overflow-x: auto;
+    margin-top: 10px;
 }
 
 .reference-grid-container table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 600px;
+    min-width: 500px;
 }
 
 .reference-grid-container th,
 .reference-grid-container td {
-    padding: 10px;
+    padding: 8px;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.82rem;
 }
 
 .reference-grid-container th {
     background: rgba(247, 151, 30, 0.3);
     color: #ffd200;
     font-weight: 700;
+    position: sticky;
+    top: 0;
 }
 
 .reference-grid-container td:hover {
-    background: rgba(247, 151, 30, 0.2);
+    background: rgba(247, 151, 30, 0.25);
     cursor: pointer;
 }
 
-.reference-grid-container .header-cell {
-    background: rgba(247, 151, 30, 0.5);
-    color: #fff;
+.header-cell {
+    background: rgba(247, 151, 30, 0.5) !important;
+    color: #fff !important;
     font-weight: 700;
 }
+
+/* ===== EXPONENTS ===== */
+.exponent-laws {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.law-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 20px;
+    transition: transform 0.2s;
+}
+
+.law-card:hover {
+    transform: translateY(-3px);
+    border-color: #f7971e;
+}
+
+.law-card h3 {
+    color: #ffd200;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.law-formula {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #a8e063;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.law-example {
+    color: #aaa;
+    font-size: 0.85rem;
+}
+
+.expo-practice {
+    margin-top: 15px;
+}
+
+.expo-quiz-card {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+}
+
+.expo-score-display {
+    margin-top: 10px;
+    color: #aaa;
+}
+
+/* ===== GAMES ===== */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.game-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.game-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: #ffd200;
+}
+
+.game-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+}
+
+.game-card h3 {
+    color: #ffd200;
+    margin-bottom: 8px;
+}
+
+.game-card p {
+    color: #aaa;
+    font-size: 0.88rem;
+    margin-bottom: 12px;
+}
+
+.game-difficulty {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.easy-tag { background: rgba(86, 171, 47, 0.2); color: #a8e063; }
+.medium-tag { background: rgba(247, 151, 30, 0.2); color: #ffd200; }
+.hard-tag { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; }
+
+.game-description {
+    color: #aaa;
+    margin-bottom: 20px;
+}
+
+.game-play-area {
+    margin-top: 15px;
+}
+
+.back-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ccc;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    transition: all 0.2s;
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Speed Game Timer */
+.speed-timer-bar, .duel-timer-bar {
+    height: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.speed-timer-fill, .duel-timer-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #56ab2f, #a8e063);
+    border-radius: 10px;
+    transition: width 0.1s linear;
+    width: 100%;
+}
+
+.speed-stats, .chain-info, .tf-stats, .missing-stats, .duel-stats, .est-stats {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* True/False Buttons */
+.tf-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.tf-true-btn, .tf-false-btn {
+    padding: 18px 40px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tf-true-btn {
+    background: linear-gradient(135deg, #56ab2f, #a8e063);
+    color: #000;
+}
+
+.tf-false-btn {
+    background: linear-gradient(135deg, #e53935, #ff6b6b);
+    color: #fff;
+}
+
+.tf-true-btn:hover { transform: scale(1.08); }
+.tf-false-btn:hover { transform: scale(1.08); }
 
 /* ===== STATS ===== */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
     margin-bottom: 25px;
 }
 
 .stat-card {
     background: rgba(255, 255, 255, 0.08);
-    padding: 25px;
+    padding: 20px;
     border-radius: 12px;
     text-align: center;
 }
 
 .stat-card h4 {
     color: #aaa;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
 }
 
 .stat-card span {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #ffd200;
 }
@@ -434,23 +776,58 @@ header p {
     background: rgba(255, 107, 107, 0.4);
 }
 
+/* ===== BADGES ===== */
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.badge-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.badge-card.unlocked {
+    border-color: #ffd200;
+    background: rgba(247, 151, 30, 0.1);
+}
+
+.badge-card.locked {
+    opacity: 0.4;
+    filter: grayscale(1);
+}
+
+.badge-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.badge-card h4 {
+    color: #ffd200;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.badge-card p {
+    color: #aaa;
+    font-size: 0.75rem;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 600px) {
-    header h1 {
-        font-size: 1.8rem;
-    }
-
-    .question-text {
-        font-size: 2rem;
-    }
-
-    .settings-panel {
-        flex-direction: column;
-    }
-
-    .timer-bar {
-        flex-direction: column;
-        gap: 8px;
-        text-align: center;
-    }
+    header h1 { font-size: 1.8rem; }
+    .question-text { font-size: 1.8rem; }
+    .settings-panel { flex-direction: column; }
+    .timer-bar { flex-direction: column; text-align: center; font-size: 0.9rem; }
+    .main-nav { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+    .nav-card { padding: 18px 10px; }
+    .exponent-laws { grid-template-columns: 1fr; }
+    .law-formula { font-size: 1.1rem; }
+    .tf-buttons { flex-direction: column; align-items: center; }
 }

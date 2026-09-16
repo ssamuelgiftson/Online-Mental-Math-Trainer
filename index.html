@@ -3,35 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mental Math Trainer</title>
+    <title>🧮 Mental Math Trainer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
+
+        <!-- HEADER -->
         <header>
             <h1>🧮 Mental Math Trainer</h1>
             <p>Sharpen your math skills with daily practice!</p>
+            <div class="xp-bar-container">
+                <div class="xp-info">
+                    <span id="player-level">🏅 Level 1</span>
+                    <span id="player-xp">0 / 100 XP</span>
+                </div>
+                <div class="xp-bar">
+                    <div class="xp-fill" id="xp-fill" style="width: 0%"></div>
+                </div>
+            </div>
         </header>
 
+        <!-- NAVIGATION -->
         <nav class="main-nav">
-            <a href="#practice" class="nav-card" onclick="showSection('practice')">
+            <a href="#" class="nav-card" onclick="showSection('practice')">
                 <span class="icon">🎯</span>
                 <h3>Practice</h3>
                 <p>Test your speed & accuracy</p>
             </a>
-            <a href="#tables" class="nav-card" onclick="showSection('tables')">
+            <a href="#" class="nav-card" onclick="showSection('tables')">
                 <span class="icon">📊</span>
                 <h3>Tables Chart</h3>
-                <p>Study & Reference</p>
+                <p>Study & Reference (1-35)</p>
             </a>
-            <a href="#stats" class="nav-card" onclick="showSection('stats')">
+            <a href="#" class="nav-card" onclick="showSection('exponents')">
+                <span class="icon">📐</span>
+                <h3>Exponents</h3>
+                <p>Laws & Practice</p>
+            </a>
+            <a href="#" class="nav-card" onclick="showSection('games')">
+                <span class="icon">🎮</span>
+                <h3>Math Games</h3>
+                <p>Fun challenges & puzzles</p>
+            </a>
+            <a href="#" class="nav-card" onclick="showSection('stats')">
                 <span class="icon">📈</span>
                 <h3>Your Stats</h3>
                 <p>Track your progress</p>
             </a>
+            <a href="#" class="nav-card" onclick="showSection('badges')">
+                <span class="icon">🏆</span>
+                <h3>Badges</h3>
+                <p>Your achievements</p>
+            </a>
         </nav>
 
-        <!-- PRACTICE SECTION -->
+        <!-- ==================== PRACTICE SECTION ==================== -->
         <section id="practice" class="section hidden">
             <h2>⚡ Practice Mode</h2>
 
@@ -43,15 +70,27 @@
                         <button class="op-btn" data-op="-" onclick="setOperation('-')">➖ Subtract</button>
                         <button class="op-btn" data-op="×" onclick="setOperation('×')">✖️ Multiply</button>
                         <button class="op-btn" data-op="÷" onclick="setOperation('÷')">➗ Divide</button>
+                        <button class="op-btn" data-op="^" onclick="setOperation('^')">🔢 Exponents</button>
+                        <button class="op-btn" data-op="mix" onclick="setOperation('mix')">🔀 Mixed</button>
                     </div>
                 </div>
 
                 <div class="setting-group">
                     <label>Difficulty:</label>
                     <div class="btn-group">
-                        <button class="diff-btn active" data-diff="easy" onclick="setDifficulty('easy')">Easy</button>
-                        <button class="diff-btn" data-diff="medium" onclick="setDifficulty('medium')">Medium</button>
-                        <button class="diff-btn" data-diff="hard" onclick="setDifficulty('hard')">Hard</button>
+                        <button class="diff-btn active" data-diff="easy" onclick="setDifficulty('easy')">🟢 Easy</button>
+                        <button class="diff-btn" data-diff="medium" onclick="setDifficulty('medium')">🟡 Medium</button>
+                        <button class="diff-btn" data-diff="hard" onclick="setDifficulty('hard')">🔴 Hard</button>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label>Questions:</label>
+                    <div class="btn-group">
+                        <button class="ques-btn active" data-ques="10" onclick="setQuestionCount(10)">10</button>
+                        <button class="ques-btn" data-ques="20" onclick="setQuestionCount(20)">20</button>
+                        <button class="ques-btn" data-ques="50" onclick="setQuestionCount(50)">50</button>
+                        <button class="ques-btn" data-ques="0" onclick="setQuestionCount(0)">♾️ Unlimited</button>
                     </div>
                 </div>
             </div>
@@ -59,86 +98,424 @@
             <div class="quiz-area">
                 <div class="timer-bar">
                     <span id="timer">⏱️ 0:00</span>
-                    <span id="score-display">Score: 0 | Streak: 0</span>
+                    <span id="question-counter">Q: 0 / 10</span>
+                    <span id="score-display">Score: 0 | Streak: 0 🔥</span>
                 </div>
 
                 <div class="question-card">
+                    <div id="operation-badge" class="operation-badge">➕ Addition</div>
                     <p id="question" class="question-text">Press Start to Begin!</p>
                     <input type="number" id="answer-input" placeholder="Your answer..."
                            onkeypress="if(event.key==='Enter') checkAnswer()" disabled>
                     <div class="quiz-buttons">
-                        <button id="start-btn" onclick="startQuiz()">▶️ Start</button>
-                        <button id="submit-btn" onclick="checkAnswer()" disabled>Submit</button>
-                        <button id="skip-btn" onclick="skipQuestion()" disabled>Skip ⏭️</button>
+                        <button id="start-btn" class="btn-start" onclick="startQuiz()">▶️ Start Quiz</button>
+                        <button id="stop-btn" class="btn-stop" onclick="stopQuiz()" disabled>⏹️ Stop Quiz</button>
+                        <button id="submit-btn" class="btn-submit" onclick="checkAnswer()" disabled>✅ Submit</button>
+                        <button id="skip-btn" class="btn-skip" onclick="skipQuestion()" disabled>⏭️ Skip</button>
                     </div>
                 </div>
 
                 <div id="feedback" class="feedback"></div>
 
+                <!-- Progress Bar -->
+                <div class="progress-container" id="progress-container" style="display:none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+                    </div>
+                    <span id="progress-text" class="progress-text">0%</span>
+                </div>
+
+                <!-- Results -->
                 <div id="results" class="results hidden">
                     <h3>🏆 Session Results</h3>
                     <div class="results-grid">
-                        <div class="result-item">
-                            <span class="result-label">Correct</span>
+                        <div class="result-item correct-bg">
+                            <span class="result-label">✅ Correct</span>
                             <span id="total-correct" class="result-value">0</span>
                         </div>
-                        <div class="result-item">
-                            <span class="result-label">Wrong</span>
+                        <div class="result-item wrong-bg">
+                            <span class="result-label">❌ Wrong</span>
                             <span id="total-wrong" class="result-value">0</span>
                         </div>
                         <div class="result-item">
-                            <span class="result-label">Accuracy</span>
+                            <span class="result-label">🎯 Accuracy</span>
                             <span id="accuracy" class="result-value">0%</span>
                         </div>
                         <div class="result-item">
-                            <span class="result-label">Best Streak</span>
+                            <span class="result-label">🔥 Best Streak</span>
                             <span id="best-streak" class="result-value">0</span>
                         </div>
+                        <div class="result-item">
+                            <span class="result-label">⏱️ Time</span>
+                            <span id="total-time" class="result-value">0:00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">⚡ XP Earned</span>
+                            <span id="xp-earned" class="result-value">0</span>
+                        </div>
                     </div>
+                    <button class="btn-start" onclick="startQuiz()" style="margin-top:20px;">🔄 Play Again</button>
                 </div>
             </div>
         </section>
 
-        <!-- TABLES SECTION -->
+        <!-- ==================== TABLES SECTION ==================== -->
         <section id="tables" class="section hidden">
-            <h2>📊 Multiplication Tables</h2>
+            <h2>📊 Tables Chart (1 - 35)</h2>
 
             <div class="table-controls">
-                <label>Select Table Range:</label>
-                <select id="table-start" onchange="generateTables()">
-                    <option value="1">1</option>
-                    <option value="2" selected>2</option>
-                    <option value="6">6</option>
-                    <option value="11">11</option>
-                </select>
-                <span> to </span>
-                <select id="table-end" onchange="generateTables()">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="12" selected>12</option>
-                    <option value="20">20</option>
-                </select>
+                <div class="control-group">
+                    <label>From:</label>
+                    <select id="table-start" onchange="generateTables()">
+                        <option value="1">1</option>
+                        <option value="2" selected>2</option>
+                        <option value="6">6</option>
+                        <option value="11">11</option>
+                        <option value="16">16</option>
+                        <option value="21">21</option>
+                        <option value="26">26</option>
+                        <option value="31">31</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>To:</label>
+                    <select id="table-end" onchange="generateTables()">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="12" selected>12</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="25">25</option>
+                        <option value="30">30</option>
+                        <option value="35">35</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Multiply up to:</label>
+                    <select id="table-multiplier" onchange="generateTables()">
+                        <option value="10">× 10</option>
+                        <option value="12" selected>× 12</option>
+                        <option value="15">× 15</option>
+                        <option value="20">× 20</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Type:</label>
+                    <select id="table-type" onchange="generateTables()">
+                        <option value="multiplication">✖️ Multiplication</option>
+                        <option value="addition">➕ Addition</option>
+                        <option value="subtraction">➖ Subtraction</option>
+                        <option value="division">➗ Division</option>
+                    </select>
+                </div>
+            </div>
 
-                <label style="margin-left:20px;">Table Type:</label>
-                <select id="table-type" onchange="generateTables()">
-                    <option value="multiplication">Multiplication</option>
-                    <option value="addition">Addition</option>
-                    <option value="subtraction">Subtraction</option>
-                    <option value="division">Division</option>
-                </select>
+            <!-- Search -->
+            <div class="table-search">
+                <input type="text" id="table-search-input" placeholder="🔍 Search a specific table (e.g., 17)"
+                       onkeyup="searchTable()">
             </div>
 
             <div id="tables-container" class="tables-grid"></div>
 
-            <!-- QUICK REFERENCE GRID -->
-            <h2 style="margin-top: 40px;">📋 Quick Reference Grid (Multiplication)</h2>
+            <!-- Quick Reference Grid -->
+            <h2 style="margin-top:40px;">📋 Quick Reference Grid</h2>
+            <div class="ref-grid-controls">
+                <label>Grid Size:</label>
+                <select id="grid-size" onchange="generateReferenceGrid()">
+                    <option value="12">12 × 12</option>
+                    <option value="15">15 × 15</option>
+                    <option value="20">20 × 20</option>
+                    <option value="25">25 × 25</option>
+                    <option value="35">35 × 35</option>
+                </select>
+            </div>
             <div id="reference-grid" class="reference-grid-container"></div>
         </section>
 
-        <!-- STATS SECTION -->
+        <!-- ==================== EXPONENTS SECTION ==================== -->
+        <section id="exponents" class="section hidden">
+            <h2>📐 Laws of Exponents</h2>
+
+            <!-- Laws Reference -->
+            <div class="exponent-laws">
+                <div class="law-card">
+                    <h3>Product Rule</h3>
+                    <div class="law-formula">a<sup>m</sup> × a<sup>n</sup> = a<sup>m+n</sup></div>
+                    <p class="law-example">Example: 2³ × 2⁴ = 2⁷ = 128</p>
+                </div>
+                <div class="law-card">
+                    <h3>Quotient Rule</h3>
+                    <div class="law-formula">a<sup>m</sup> ÷ a<sup>n</sup> = a<sup>m−n</sup></div>
+                    <p class="law-example">Example: 5⁶ ÷ 5² = 5⁴ = 625</p>
+                </div>
+                <div class="law-card">
+                    <h3>Power Rule</h3>
+                    <div class="law-formula">(a<sup>m</sup>)<sup>n</sup> = a<sup>m×n</sup></div>
+                    <p class="law-example">Example: (3²)³ = 3⁶ = 729</p>
+                </div>
+                <div class="law-card">
+                    <h3>Zero Exponent</h3>
+                    <div class="law-formula">a<sup>0</sup> = 1</div>
+                    <p class="law-example">Example: 99⁰ = 1</p>
+                </div>
+                <div class="law-card">
+                    <h3>Negative Exponent</h3>
+                    <div class="law-formula">a<sup>−n</sup> = 1 / a<sup>n</sup></div>
+                    <p class="law-example">Example: 2⁻³ = 1/8 = 0.125</p>
+                </div>
+                <div class="law-card">
+                    <h3>Power of Product</h3>
+                    <div class="law-formula">(ab)<sup>n</sup> = a<sup>n</sup> × b<sup>n</sup></div>
+                    <p class="law-example">Example: (2×3)² = 4 × 9 = 36</p>
+                </div>
+                <div class="law-card">
+                    <h3>Power of Quotient</h3>
+                    <div class="law-formula">(a/b)<sup>n</sup> = a<sup>n</sup> / b<sup>n</sup></div>
+                    <p class="law-example">Example: (4/2)³ = 64/8 = 8</p>
+                </div>
+                <div class="law-card">
+                    <h3>Fractional Exponent</h3>
+                    <div class="law-formula">a<sup>1/n</sup> = ⁿ√a</div>
+                    <p class="law-example">Example: 27<sup>1/3</sup> = ³√27 = 3</p>
+                </div>
+            </div>
+
+            <!-- Powers Reference Table -->
+            <h3 style="margin-top:30px; color:#ffd200;">📋 Powers Reference Table</h3>
+            <div id="powers-table" class="reference-grid-container"></div>
+
+            <!-- Exponent Practice -->
+            <h3 style="margin-top:30px; color:#ffd200;">🎯 Exponent Practice</h3>
+            <div class="expo-practice">
+                <div class="expo-quiz-card">
+                    <p id="expo-question" class="question-text">Click Start to Practice!</p>
+                    <input type="number" id="expo-answer" placeholder="Your answer..."
+                           onkeypress="if(event.key==='Enter') checkExpoAnswer()" disabled>
+                    <div class="quiz-buttons">
+                        <button class="btn-start" id="expo-start-btn" onclick="startExpoPractice()">▶️ Start</button>
+                        <button class="btn-stop" id="expo-stop-btn" onclick="stopExpoPractice()" disabled>⏹️ Stop</button>
+                        <button class="btn-submit" id="expo-submit-btn" onclick="checkExpoAnswer()" disabled>✅ Submit</button>
+                    </div>
+                    <div id="expo-feedback" class="feedback"></div>
+                    <div id="expo-score" class="expo-score-display"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== GAMES SECTION ==================== -->
+        <section id="games" class="section hidden">
+            <h2>🎮 Math Games Arena</h2>
+
+            <div class="games-grid">
+                <!-- Game 1: Speed Round -->
+                <div class="game-card" onclick="showSection('speed-game')">
+                    <div class="game-icon">⚡</div>
+                    <h3>Speed Round</h3>
+                    <p>Answer as many questions as possible in 60 seconds!</p>
+                    <span class="game-difficulty easy-tag">Easy - Hard</span>
+                </div>
+
+                <!-- Game 2: Number Chain -->
+                <div class="game-card" onclick="showSection('chain-game')">
+                    <div class="game-icon">🔗</div>
+                    <h3>Number Chain</h3>
+                    <p>Each answer becomes part of the next question!</p>
+                    <span class="game-difficulty medium-tag">Medium</span>
+                </div>
+
+                <!-- Game 3: True or False -->
+                <div class="game-card" onclick="showSection('truefalse-game')">
+                    <div class="game-icon">✅❌</div>
+                    <h3>True or False</h3>
+                    <p>Is the equation correct? Quick reaction time!</p>
+                    <span class="game-difficulty easy-tag">Easy</span>
+                </div>
+
+                <!-- Game 4: Missing Number -->
+                <div class="game-card" onclick="showSection('missing-game')">
+                    <div class="game-icon">❓</div>
+                    <h3>Missing Number</h3>
+                    <p>Find the missing number in the equation!</p>
+                    <span class="game-difficulty medium-tag">Medium</span>
+                </div>
+
+                <!-- Game 5: Math Duel -->
+                <div class="game-card" onclick="showSection('duel-game')">
+                    <div class="game-icon">⚔️</div>
+                    <h3>Beat the Clock</h3>
+                    <p>Each correct answer adds time. Wrong = lose time!</p>
+                    <span class="game-difficulty hard-tag">Hard</span>
+                </div>
+
+                <!-- Game 6: Estimation Game -->
+                <div class="game-card" onclick="showSection('estimation-game')">
+                    <div class="game-icon">🎯</div>
+                    <h3>Estimation Master</h3>
+                    <p>Estimate the answer! Get points for being close!</p>
+                    <span class="game-difficulty medium-tag">Medium</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SPEED GAME ==================== -->
+        <section id="speed-game" class="section hidden">
+            <button class="back-btn" onclick="showSection('games')">← Back to Games</button>
+            <h2>⚡ Speed Round - 60 Seconds!</h2>
+            <div class="game-play-area">
+                <div class="speed-timer-bar">
+                    <div class="speed-timer-fill" id="speed-timer-fill"></div>
+                </div>
+                <div class="speed-stats">
+                    <span id="speed-time-left">⏱️ 60s</span>
+                    <span id="speed-score">Score: 0</span>
+                    <span id="speed-correct-count">✅ 0</span>
+                </div>
+                <div class="question-card">
+                    <p id="speed-question" class="question-text">Press Start!</p>
+                    <input type="number" id="speed-answer" placeholder="Answer..."
+                           onkeypress="if(event.key==='Enter') checkSpeedAnswer()" disabled>
+                    <div class="quiz-buttons">
+                        <button class="btn-start" id="speed-start-btn" onclick="startSpeedGame()">▶️ Start</button>
+                        <button class="btn-stop" id="speed-stop-btn" onclick="stopSpeedGame()" disabled>⏹️ Stop</button>
+                    </div>
+                </div>
+                <div id="speed-feedback" class="feedback"></div>
+                <div id="speed-results" class="results hidden"></div>
+            </div>
+        </section>
+
+        <!-- ==================== CHAIN GAME ==================== -->
+        <section id="chain-game" class="section hidden">
+            <button class="back-btn" onclick="showSection('games')">← Back to Games</button>
+            <h2>🔗 Number Chain</h2>
+            <p class="game-description">The answer to each question becomes the starting number of the next!</p>
+            <div class="game-play-area">
+                <div class="chain-info">
+                    <span id="chain-length">Chain: 0 🔗</span>
+                    <span id="chain-score">Score: 0</span>
+                </div>
+                <div class="question-card">
+                    <p id="chain-question" class="question-text">Press Start!</p>
+                    <input type="number" id="chain-answer" placeholder="Answer..."
+                           onkeypress="if(event.key==='Enter') checkChainAnswer()" disabled>
+                    <div class="quiz-buttons">
+                        <button class="btn-start" id="chain-start-btn" onclick="startChainGame()">▶️ Start</button>
+                        <button class="btn-stop" id="chain-stop-btn" onclick="stopChainGame()" disabled>⏹️ Stop</button>
+                        <button class="btn-submit" id="chain-submit-btn" onclick="checkChainAnswer()" disabled>✅ Submit</button>
+                    </div>
+                </div>
+                <div id="chain-feedback" class="feedback"></div>
+            </div>
+        </section>
+
+        <!-- ==================== TRUE/FALSE GAME ==================== -->
+        <section id="truefalse-game" class="section hidden">
+            <button class="back-btn" onclick="showSection('games')">← Back to Games</button>
+            <h2>✅❌ True or False</h2>
+            <p class="game-description">Is this equation correct? React fast!</p>
+            <div class="game-play-area">
+                <div class="tf-stats">
+                    <span id="tf-score">Score: 0</span>
+                    <span id="tf-lives">❤️❤️❤️</span>
+                    <span id="tf-streak-display">🔥 Streak: 0</span>
+                </div>
+                <div class="question-card">
+                    <p id="tf-question" class="question-text">Press Start!</p>
+                    <div class="tf-buttons" id="tf-buttons" style="display:none;">
+                        <button class="tf-true-btn" onclick="checkTFAnswer(true)">✅ TRUE</button>
+                        <button class="tf-false-btn" onclick="checkTFAnswer(false)">❌ FALSE</button>
+                    </div>
+                    <div class="quiz-buttons">
+                        <button class="btn-start" id="tf-start-btn" onclick="startTFGame()">▶️ Start</button>
+                        <button class="btn-stop" id="tf-stop-btn" onclick="stopTFGame()" disabled>⏹️ Stop</button>
+                    </div>
+                </div>
+                <div id="tf-feedback" class="feedback"></div>
+            </div>
+        </section>
+
+        <!-- ==================== MISSING NUMBER GAME ==================== -->
+        <section id="missing-game" class="section hidden">
+            <button class="back-btn" onclick="showSection('games')">← Back to Games</button>
+            <h2>❓ Missing Number</h2>
+            <p class="game-description">Find the missing number to complete the equation!</p>
+            <div class="game-play-area">
+                <div class="missing-stats">
+                    <span id="missing-score">Score: 0</span>
+                    <span id="missing-streak">🔥 Streak: 0</span>
+                </div>
+                <div class="question-card">
+                    <p id="missing-question" class="question-text">Press Start!</p>
+                    <input type="number" id="missing-answer" placeholder="Missing number..."
+                           onkeypress="if(event.key==='Enter') checkMissingAnswer()" disabled>
+                    <div class="quiz-buttons">
+                        <button class="btn-start" id="missing-start-btn" onclick="startMissingGame()">▶️ Start</button>
+                        <button class="btn-stop" id="missing-stop-btn" onclick="stopMissingGame()" disabled>⏹️ Stop</button>
+                        <button class="btn-submit" id="missing-submit-btn" onclick="checkMissingAnswer()" disabled>✅ Submit</button>
+                    </div>
+                </div>
+                <div id="missing-feedback" class="feedback"></div>
+            </div>
+        </section>
+
+        <!-- ==================== BEAT THE CLOCK GAME ==================== -->
+        <section id="duel-game" class="section hidden">
+            <button class="back-btn" onclick="showSection('games')">← Back to Games</button>
+            <h2>⚔️ Beat the Clock</h2>
+            <p class="game-description">Start with 30 seconds. Correct = +3s, Wrong = -5s. Survive!</p>
+            <div class="game-play-area">
+                <div class="duel-timer-bar">
+                    <div class="duel-timer-fill" id="duel-timer-fill"></div>
+                </div>
+                <div class="duel-stats">
+                    <span id="duel-time">⏱️ 30.0s</span>
+                    <span id="duel-score">Score: 0</span>
+                    <span id="duel-answered">Answered: 0</span>
+                </div>
+                <div class="question-card">
+                    <p id="duel-question" class="question-text">Press Start!</p>
+                    <input type="number" id="duel-answer" placeholder="Answer..."
+                           onkeypress="if(event.key==='Enter') checkDuelAnswer()" disabled>
+                    <div class="quiz-buttons">
+                        <button class="btn-start" id="duel-start-btn" onclick="startDuelGame()">▶️ Start</button>
+                        <button class="btn-stop" id="duel-stop-btn" onclick="stopDuelGame()" disabled>⏹️ Stop</button>
+                    </div>
+                </div>
+                <div id="duel-feedback" class="feedback"></div>
+                <div id="duel-results" class="results hidden"></div>
+            </div>
+        </section>
+
+        <!-- ==================== ESTIMATION GAME ==================== -->
+        <section id="estimation-game" class="section hidden">
+            <button class="back-btn" onclick="showSection('games')">← Back to Games</button>
+            <h2>🎯 Estimation Master</h2>
+            <p class="game-description">Estimate the answer! Points based on how close you are!</p>
+            <div class="game-play-area">
+                <div class="est-stats">
+                    <span id="est-score">Score: 0</span>
+                    <span id="est-round">Round: 0 / 10</span>
+                </div>
+                <div class="question-card">
+                    <p id="est-question" class="question-text">Press Start!</p>
+                    <input type="number" id="est-answer" placeholder="Your estimate..."
+                           onkeypress="if(event.key==='Enter') checkEstAnswer()" disabled>
+                    <div class="quiz-buttons">
+                        <button class="btn-start" id="est-start-btn" onclick="startEstGame()">▶️ Start</button>
+                        <button class="btn-stop" id="est-stop-btn" onclick="stopEstGame()" disabled>⏹️ Stop</button>
+                        <button class="btn-submit" id="est-submit-btn" onclick="checkEstAnswer()" disabled>✅ Submit</button>
+                    </div>
+                </div>
+                <div id="est-feedback" class="feedback"></div>
+                <div id="est-results" class="results hidden"></div>
+            </div>
+        </section>
+
+        <!-- ==================== STATS SECTION ==================== -->
         <section id="stats" class="section hidden">
             <h2>📈 Your Statistics</h2>
-            <div id="stats-content" class="stats-grid">
+            <div class="stats-grid">
                 <div class="stat-card">
                     <h4>Total Questions</h4>
                     <span id="stat-total">0</span>
@@ -152,12 +529,27 @@
                     <span id="stat-streak">0</span>
                 </div>
                 <div class="stat-card">
-                    <h4>Sessions</h4>
+                    <h4>Sessions Played</h4>
                     <span id="stat-sessions">0</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Total XP</h4>
+                    <span id="stat-xp">0</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Current Level</h4>
+                    <span id="stat-level">1</span>
                 </div>
             </div>
             <button onclick="clearStats()" class="danger-btn">🗑️ Reset All Stats</button>
         </section>
+
+        <!-- ==================== BADGES SECTION ==================== -->
+        <section id="badges" class="section hidden">
+            <h2>🏆 Your Badges & Achievements</h2>
+            <div id="badges-container" class="badges-grid"></div>
+        </section>
+
     </div>
 
     <script src="script.js"></script>
