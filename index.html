@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Math Trainer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧮 Mental Math Trainer</h1>
+            <p>Sharpen your math skills with daily practice!</p>
+        </header>
+
+        <nav class="main-nav">
+            <a href="#practice" class="nav-card" onclick="showSection('practice')">
+                <span class="icon">🎯</span>
+                <h3>Practice</h3>
+                <p>Test your speed & accuracy</p>
+            </a>
+            <a href="#tables" class="nav-card" onclick="showSection('tables')">
+                <span class="icon">📊</span>
+                <h3>Tables Chart</h3>
+                <p>Study & Reference</p>
+            </a>
+            <a href="#stats" class="nav-card" onclick="showSection('stats')">
+                <span class="icon">📈</span>
+                <h3>Your Stats</h3>
+                <p>Track your progress</p>
+            </a>
+        </nav>
+
+        <!-- PRACTICE SECTION -->
+        <section id="practice" class="section hidden">
+            <h2>⚡ Practice Mode</h2>
+
+            <div class="settings-panel">
+                <div class="setting-group">
+                    <label>Operation:</label>
+                    <div class="btn-group">
+                        <button class="op-btn active" data-op="+" onclick="setOperation('+')">➕ Add</button>
+                        <button class="op-btn" data-op="-" onclick="setOperation('-')">➖ Subtract</button>
+                        <button class="op-btn" data-op="×" onclick="setOperation('×')">✖️ Multiply</button>
+                        <button class="op-btn" data-op="÷" onclick="setOperation('÷')">➗ Divide</button>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label>Difficulty:</label>
+                    <div class="btn-group">
+                        <button class="diff-btn active" data-diff="easy" onclick="setDifficulty('easy')">Easy</button>
+                        <button class="diff-btn" data-diff="medium" onclick="setDifficulty('medium')">Medium</button>
+                        <button class="diff-btn" data-diff="hard" onclick="setDifficulty('hard')">Hard</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-area">
+                <div class="timer-bar">
+                    <span id="timer">⏱️ 0:00</span>
+                    <span id="score-display">Score: 0 | Streak: 0</span>
+                </div>
+
+                <div class="question-card">
+                    <p id="question" class="question-text">Press Start to Begin!</p>
+                    <input type="number" id="answer-input" placeholder="Your answer..."
+                           onkeypress="if(event.key==='Enter') checkAnswer()" disabled>
+                    <div class="quiz-buttons">
+                        <button id="start-btn" onclick="startQuiz()">▶️ Start</button>
+                        <button id="submit-btn" onclick="checkAnswer()" disabled>Submit</button>
+                        <button id="skip-btn" onclick="skipQuestion()" disabled>Skip ⏭️</button>
+                    </div>
+                </div>
+
+                <div id="feedback" class="feedback"></div>
+
+                <div id="results" class="results hidden">
+                    <h3>🏆 Session Results</h3>
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <span class="result-label">Correct</span>
+                            <span id="total-correct" class="result-value">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Wrong</span>
+                            <span id="total-wrong" class="result-value">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Accuracy</span>
+                            <span id="accuracy" class="result-value">0%</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Best Streak</span>
+                            <span id="best-streak" class="result-value">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TABLES SECTION -->
+        <section id="tables" class="section hidden">
+            <h2>📊 Multiplication Tables</h2>
+
+            <div class="table-controls">
+                <label>Select Table Range:</label>
+                <select id="table-start" onchange="generateTables()">
+                    <option value="1">1</option>
+                    <option value="2" selected>2</option>
+                    <option value="6">6</option>
+                    <option value="11">11</option>
+                </select>
+                <span> to </span>
+                <select id="table-end" onchange="generateTables()">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="12" selected>12</option>
+                    <option value="20">20</option>
+                </select>
+
+                <label style="margin-left:20px;">Table Type:</label>
+                <select id="table-type" onchange="generateTables()">
+                    <option value="multiplication">Multiplication</option>
+                    <option value="addition">Addition</option>
+                    <option value="subtraction">Subtraction</option>
+                    <option value="division">Division</option>
+                </select>
+            </div>
+
+            <div id="tables-container" class="tables-grid"></div>
+
+            <!-- QUICK REFERENCE GRID -->
+            <h2 style="margin-top: 40px;">📋 Quick Reference Grid (Multiplication)</h2>
+            <div id="reference-grid" class="reference-grid-container"></div>
+        </section>
+
+        <!-- STATS SECTION -->
+        <section id="stats" class="section hidden">
+            <h2>📈 Your Statistics</h2>
+            <div id="stats-content" class="stats-grid">
+                <div class="stat-card">
+                    <h4>Total Questions</h4>
+                    <span id="stat-total">0</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Overall Accuracy</h4>
+                    <span id="stat-accuracy">0%</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Best Streak</h4>
+                    <span id="stat-streak">0</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Sessions</h4>
+                    <span id="stat-sessions">0</span>
+                </div>
+            </div>
+            <button onclick="clearStats()" class="danger-btn">🗑️ Reset All Stats</button>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
