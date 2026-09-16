@@ -1,4 +1,9 @@
 // ============================================================
+//  MENTAL MATH TRAINER - v3.1.0
+//  Complete JavaScript with all features
+// ============================================================
+
+// ============================================================
 //  STATE MANAGEMENT
 // ============================================================
 let currentOperation = '+';
@@ -21,11 +26,173 @@ let playerLevel = 1;
 const XP_PER_LEVEL = 100;
 
 // ============================================================
+//  SOUND EFFECTS
+// ============================================================
+let soundEnabled = true;
+
+function playSound(type) {
+    if (!soundEnabled) return;
+
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        switch (type) {
+            case 'correct':
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1);
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.4);
+                break;
+
+            case 'wrong':
+                oscillator.frequency.setValueAtTime(311.13, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(233.08, audioContext.currentTime + 0.15);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+                break;
+
+            case 'levelup':
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1);
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2);
+                oscillator.frequency.setValueAtTime(1046.50, audioContext.currentTime + 0.3);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+                break;
+
+            case 'click':
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.08);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.08);
+                break;
+
+            case 'gameover':
+                oscillator.frequency.setValueAtTime(392, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(349.23, audioContext.currentTime + 0.2);
+                oscillator.frequency.setValueAtTime(329.63, audioContext.currentTime + 0.4);
+                oscillator.frequency.setValueAtTime(261.63, audioContext.currentTime + 0.6);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.8);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.8);
+                break;
+
+            case 'badge':
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.15);
+                oscillator.frequency.setValueAtTime(1046.50, audioContext.currentTime + 0.3);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.6);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.6);
+                break;
+        }
+    } catch (e) {
+        console.log('Sound not supported');
+    }
+}
+
+function toggleSound() {
+    soundEnabled = !soundEnabled;
+    const btn = document.getElementById('sound-toggle');
+    btn.textContent = soundEnabled ? '🔊 Sound ON' : '🔇 Sound OFF';
+    localStorage.setItem('mathSoundEnabled', soundEnabled);
+    playSound('click');
+}
+
+// ============================================================
+//  CONFETTI ANIMATION
+// ============================================================
+function createConfetti() {
+    const colors = ['#f7971e', '#ffd200', '#a8e063', '#56ab2f', '#6495ed', '#ff6b6b'];
+
+    for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti-piece';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 0.5 + 's';
+        confetti.style.animationDuration = (Math.random() * 1 + 1) + 's';
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 2000);
+    }
+}
+
+function createBigConfetti() {
+    const colors = ['#f7971e', '#ffd200', '#a8e063', '#56ab2f', '#6495ed', '#ff6b6b', '#ba55d3'];
+
+    for (let i = 0; i < 60; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti-piece big';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 1 + 's';
+        confetti.style.animationDuration = (Math.random() * 1.5 + 1.5) + 's';
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 3500);
+    }
+}
+
+// ============================================================
+//  LOADING SCREEN
+// ============================================================
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        const loader = document.getElementById('loading-screen');
+        if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        }
+    }, 1000);
+});
+
+// ============================================================
 //  INITIALIZATION
 // ============================================================
 window.addEventListener('DOMContentLoaded', () => {
     loadPlayerProgress();
+    loadSoundPreference();
     showSection('practice');
+});
+
+function loadSoundPreference() {
+    const saved = localStorage.getItem('mathSoundEnabled');
+    if (saved !== null) {
+        soundEnabled = saved === 'true';
+    }
+    const btn = document.getElementById('sound-toggle');
+    if (btn) {
+        btn.textContent = soundEnabled ? '🔊 Sound ON' : '🔇 Sound OFF';
+    }
+}
+
+// ============================================================
+//  EXIT WARNING
+// ============================================================
+window.addEventListener('beforeunload', (e) => {
+    if (isPlaying || speedPlaying || chainPlaying || tfPlaying ||
+        missingPlaying || duelPlaying || estPlaying || expoPlaying) {
+        e.preventDefault();
+        e.returnValue = 'You have an active quiz! Are you sure you want to leave?';
+    }
 });
 
 // ============================================================
@@ -35,6 +202,8 @@ function showSection(sectionId) {
     document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
     const section = document.getElementById(sectionId);
     if (section) section.classList.remove('hidden');
+
+    playSound('click');
 
     if (sectionId === 'tables') {
         generateTables();
@@ -46,6 +215,17 @@ function showSection(sectionId) {
 }
 
 // ============================================================
+//  KEYBOARD SHORTCUTS PANEL
+// ============================================================
+function toggleShortcuts() {
+    const panel = document.getElementById('shortcuts-panel');
+    if (panel) {
+        panel.classList.toggle('hidden');
+        playSound('click');
+    }
+}
+
+// ============================================================
 //  SETTINGS
 // ============================================================
 function setOperation(op) {
@@ -53,6 +233,7 @@ function setOperation(op) {
     document.querySelectorAll('.op-btn').forEach(btn =>
         btn.classList.toggle('active', btn.dataset.op === op)
     );
+    playSound('click');
 }
 
 function setDifficulty(diff) {
@@ -60,6 +241,7 @@ function setDifficulty(diff) {
     document.querySelectorAll('.diff-btn').forEach(btn =>
         btn.classList.toggle('active', btn.dataset.diff === diff)
     );
+    playSound('click');
 }
 
 function setQuestionCount(count) {
@@ -67,6 +249,7 @@ function setQuestionCount(count) {
     document.querySelectorAll('.ques-btn').forEach(btn =>
         btn.classList.toggle('active', parseInt(btn.dataset.ques) === count)
     );
+    playSound('click');
 }
 
 // ============================================================
@@ -95,7 +278,13 @@ function generateQuestion() {
         op = ops[randInt(0, 3)];
     }
 
-    const opNames = { '+': '➕ Addition', '-': '➖ Subtraction', '×': '✖️ Multiplication', '÷': '➗ Division', '^': '🔢 Exponents' };
+    const opNames = {
+        '+': '➕ Addition',
+        '-': '➖ Subtraction',
+        '×': '✖️ Multiplication',
+        '÷': '➗ Division',
+        '^': '🔢 Exponents'
+    };
     document.getElementById('operation-badge').textContent = opNames[op] || opNames[currentOperation];
 
     switch (op) {
@@ -164,6 +353,7 @@ function startQuiz() {
     questionsAnswered = 0;
     seconds = 0;
 
+    playSound('click');
     updateScoreDisplay();
     generateQuestion();
 
@@ -193,6 +383,7 @@ function startQuiz() {
 
 function stopQuiz() {
     if (!isPlaying) return;
+    playSound('gameover');
     endQuiz();
 }
 
@@ -206,6 +397,7 @@ function checkAnswer() {
     if (isNaN(userAnswer)) {
         feedback.textContent = '⚠️ Please enter a number!';
         feedback.className = 'feedback wrong';
+        playSound('wrong');
         return;
     }
 
@@ -220,12 +412,19 @@ function checkAnswer() {
         if (streak > bestStreak) bestStreak = streak;
         feedback.textContent = `✅ Correct! +${points} pts | Streak: ${streak} 🔥`;
         feedback.className = 'feedback correct';
+        playSound('correct');
         addXP(points);
+
+        // Confetti on streaks
+        if (streak === 5) createConfetti();
+        if (streak === 10) createBigConfetti();
+        if (streak === 20) createBigConfetti();
     } else {
         totalWrong++;
         streak = 0;
         feedback.textContent = `❌ Wrong! Answer: ${currentAnswer}`;
         feedback.className = 'feedback wrong';
+        playSound('wrong');
     }
 
     updateScoreDisplay();
@@ -246,6 +445,7 @@ function skipQuestion() {
     const feedback = document.getElementById('feedback');
     feedback.textContent = `⏭️ Skipped! Answer: ${currentAnswer}`;
     feedback.className = 'feedback wrong';
+    playSound('wrong');
     updateScoreDisplay();
     updateProgress();
 
@@ -259,6 +459,8 @@ function skipQuestion() {
 function endQuiz() {
     isPlaying = false;
     clearInterval(timerInterval);
+
+    playSound('gameover');
 
     document.getElementById('answer-input').disabled = true;
     document.getElementById('submit-btn').disabled = true;
@@ -279,6 +481,10 @@ function endQuiz() {
     document.getElementById('total-time').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
     document.getElementById('xp-earned').textContent = xpEarned;
     document.getElementById('results').classList.remove('hidden');
+
+    // Confetti for good performance
+    if (accuracy >= 90) createBigConfetti();
+    else if (accuracy >= 70) createConfetti();
 
     saveStats(total, totalCorrect, bestStreak, xpEarned);
     checkBadges();
@@ -364,6 +570,76 @@ function searchTable() {
 }
 
 // ============================================================
+//  PRINT TABLES
+// ============================================================
+function printTables() {
+    const tablesContent = document.getElementById('tables-container').innerHTML;
+
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Math Tables - Mental Math Trainer</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    padding: 20px;
+                    color: #333;
+                }
+                h1 {
+                    text-align: center;
+                    color: #f7971e;
+                    margin-bottom: 20px;
+                }
+                .tables-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                    gap: 15px;
+                }
+                .table-card {
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    padding: 12px;
+                    break-inside: avoid;
+                }
+                .table-card h3 {
+                    text-align: center;
+                    color: #f7971e;
+                    margin-bottom: 8px;
+                }
+                table { width: 100%; border-collapse: collapse; }
+                td {
+                    padding: 3px 8px;
+                    border-bottom: 1px solid #eee;
+                    font-size: 0.9rem;
+                }
+                td:last-child {
+                    text-align: right;
+                    font-weight: bold;
+                }
+                .footer {
+                    text-align: center;
+                    margin-top: 20px;
+                    color: #999;
+                    font-size: 0.8rem;
+                }
+                @media print {
+                    body { padding: 10px; }
+                }
+            </style>
+        </head>
+        <body>
+            <h1>🧮 Mental Math Trainer - Tables</h1>
+            <div class="tables-grid">${tablesContent}</div>
+            <div class="footer">Generated by Mental Math Trainer | ${new Date().toLocaleDateString()}</div>
+            <script>window.print();<\/script>
+        </body>
+        </html>
+    `);
+}
+
+// ============================================================
 //  REFERENCE GRID
 // ============================================================
 function generateReferenceGrid() {
@@ -420,6 +696,7 @@ function startExpoPractice() {
     document.getElementById('expo-submit-btn').disabled = false;
     document.getElementById('expo-stop-btn').disabled = false;
     document.getElementById('expo-start-btn').textContent = '🔄 Restart';
+    playSound('click');
     generateExpoQuestion();
 }
 
@@ -431,6 +708,7 @@ function stopExpoPractice() {
     document.getElementById('expo-start-btn').textContent = '▶️ Start';
     const acc = expoTotal > 0 ? Math.round((expoCorrect / expoTotal) * 100) : 0;
     document.getElementById('expo-score').textContent = `✅ ${expoCorrect}/${expoTotal} | Accuracy: ${acc}%`;
+    playSound('gameover');
 }
 
 function generateExpoQuestion() {
@@ -452,6 +730,7 @@ function checkExpoAnswer() {
     if (isNaN(userAns)) {
         feedback.textContent = '⚠️ Enter a number!';
         feedback.className = 'feedback wrong';
+        playSound('wrong');
         return;
     }
 
@@ -460,10 +739,12 @@ function checkExpoAnswer() {
         expoCorrect++;
         feedback.textContent = '✅ Correct!';
         feedback.className = 'feedback correct';
+        playSound('correct');
         addXP(15);
     } else {
         feedback.textContent = `❌ Wrong! Answer: ${expoAnswer}`;
         feedback.className = 'feedback wrong';
+        playSound('wrong');
     }
 
     const acc = expoTotal > 0 ? Math.round((expoCorrect / expoTotal) * 100) : 0;
@@ -492,7 +773,9 @@ function startSpeedGame() {
     document.getElementById('speed-stop-btn').disabled = false;
     document.getElementById('speed-start-btn').textContent = '🔄 Restart';
     document.getElementById('speed-results').classList.add('hidden');
+    document.getElementById('speed-timer-fill').style.background = 'linear-gradient(90deg, #56ab2f, #a8e063)';
 
+    playSound('click');
     generateSpeedQuestion();
 
     clearInterval(speedInterval);
@@ -541,10 +824,12 @@ function checkSpeedAnswer() {
         speedScore += 10;
         feedback.textContent = '✅ Correct!';
         feedback.className = 'feedback correct';
+        playSound('correct');
         addXP(10);
     } else {
         feedback.textContent = `❌ Answer: ${speedAnswer}`;
         feedback.className = 'feedback wrong';
+        playSound('wrong');
     }
 
     document.getElementById('speed-score').textContent = `Score: ${speedScore}`;
@@ -566,6 +851,8 @@ function stopSpeedGame() {
     document.getElementById('speed-stop-btn').disabled = true;
     document.getElementById('speed-start-btn').textContent = '▶️ Start';
 
+    playSound('gameover');
+
     document.getElementById('speed-results').innerHTML = `
         <h3>🏆 Speed Round Results</h3>
         <div class="results-grid">
@@ -574,6 +861,10 @@ function stopSpeedGame() {
         </div>
     `;
     document.getElementById('speed-results').classList.remove('hidden');
+
+    if (speedCorrect >= 20) createBigConfetti();
+    else if (speedCorrect >= 10) createConfetti();
+
     saveStats(speedCorrect, speedCorrect, speedCorrect, speedScore);
     checkBadges();
 }
@@ -598,6 +889,7 @@ function startChainGame() {
     document.getElementById('chain-stop-btn').disabled = false;
     document.getElementById('chain-start-btn').textContent = '🔄 Restart';
 
+    playSound('click');
     generateChainQuestion();
 }
 
@@ -638,6 +930,7 @@ function checkChainAnswer() {
     if (isNaN(userAns)) {
         feedback.textContent = '⚠️ Enter a number!';
         feedback.className = 'feedback wrong';
+        playSound('wrong');
         return;
     }
 
@@ -647,7 +940,11 @@ function checkChainAnswer() {
         chainCurrent = chainAnswer;
         feedback.textContent = `✅ Correct! Chain: ${chainLength} 🔗`;
         feedback.className = 'feedback correct';
+        playSound('correct');
         addXP(15);
+
+        if (chainLength === 5) createConfetti();
+        if (chainLength === 10) createBigConfetti();
 
         document.getElementById('chain-length').textContent = `Chain: ${chainLength} 🔗`;
         document.getElementById('chain-score').textContent = `Score: ${chainScore}`;
@@ -656,6 +953,7 @@ function checkChainAnswer() {
     } else {
         feedback.textContent = `❌ Chain broken! Answer was ${chainAnswer}. Final chain: ${chainLength}`;
         feedback.className = 'feedback wrong';
+        playSound('gameover');
         stopChainGame();
     }
 }
@@ -688,6 +986,8 @@ function startTFGame() {
     document.getElementById('tf-buttons').style.display = 'flex';
     document.getElementById('tf-stop-btn').disabled = false;
     document.getElementById('tf-start-btn').textContent = '🔄 Restart';
+
+    playSound('click');
     updateTFDisplay();
     generateTFQuestion();
 }
@@ -726,18 +1026,24 @@ function checkTFAnswer(userSaysTrue) {
         tfStreak++;
         feedback.textContent = '✅ Correct!';
         feedback.className = 'feedback correct';
+        playSound('correct');
         addXP(10);
+
+        if (tfStreak === 5) createConfetti();
+        if (tfStreak === 10) createBigConfetti();
     } else {
         tfLives--;
         tfStreak = 0;
         feedback.textContent = `❌ Wrong! It was ${tfIsTrue ? 'TRUE' : 'FALSE'}`;
         feedback.className = 'feedback wrong';
+        playSound('wrong');
     }
 
     updateTFDisplay();
 
     if (tfLives <= 0) {
         feedback.textContent = `💀 Game Over! Final Score: ${tfScore}`;
+        playSound('gameover');
         stopTFGame();
         return;
     }
@@ -780,6 +1086,7 @@ function startMissingGame() {
     document.getElementById('missing-stop-btn').disabled = false;
     document.getElementById('missing-start-btn').textContent = '🔄 Restart';
 
+    playSound('click');
     generateMissingQuestion();
 }
 
@@ -789,7 +1096,7 @@ function generateMissingQuestion() {
     const ops = ['+', '−', '×'];
     const op = ops[randInt(0, 2)];
     let result;
-    const position = randInt(0, 2); // 0=first, 1=second, 2=result
+    const position = randInt(0, 2);
 
     switch (op) {
         case '+': result = a + b; break;
@@ -824,6 +1131,7 @@ function checkMissingAnswer() {
     if (isNaN(userAns)) {
         feedback.textContent = '⚠️ Enter a number!';
         feedback.className = 'feedback wrong';
+        playSound('wrong');
         return;
     }
 
@@ -832,11 +1140,16 @@ function checkMissingAnswer() {
         missingStreak++;
         feedback.textContent = `✅ Correct! Streak: ${missingStreak} 🔥`;
         feedback.className = 'feedback correct';
+        playSound('correct');
         addXP(15);
+
+        if (missingStreak === 5) createConfetti();
+        if (missingStreak === 10) createBigConfetti();
     } else {
         missingStreak = 0;
         feedback.textContent = `❌ Wrong! Answer: ${missingAnswer}`;
         feedback.className = 'feedback wrong';
+        playSound('wrong');
     }
 
     document.getElementById('missing-score').textContent = `Score: ${missingScore}`;
@@ -853,6 +1166,7 @@ function stopMissingGame() {
     document.getElementById('missing-submit-btn').disabled = true;
     document.getElementById('missing-stop-btn').disabled = true;
     document.getElementById('missing-start-btn').textContent = '▶️ Start';
+    playSound('gameover');
     saveStats(missingScore / 15, missingScore / 15, missingStreak, missingScore);
     checkBadges();
 }
@@ -879,6 +1193,7 @@ function startDuelGame() {
     document.getElementById('duel-results').classList.add('hidden');
     document.getElementById('duel-timer-fill').style.background = 'linear-gradient(90deg, #56ab2f, #a8e063)';
 
+    playSound('click');
     generateDuelQuestion();
 
     clearInterval(duelInterval);
@@ -930,11 +1245,13 @@ function checkDuelAnswer() {
         duelTimeLeft += 3;
         feedback.textContent = '✅ +3 seconds!';
         feedback.className = 'feedback correct';
+        playSound('correct');
         addXP(10);
     } else {
         duelTimeLeft -= 5;
         feedback.textContent = `❌ -5 seconds! Answer: ${duelAnswer}`;
         feedback.className = 'feedback wrong';
+        playSound('wrong');
     }
 
     document.getElementById('duel-score').textContent = `Score: ${duelScore}`;
@@ -961,6 +1278,8 @@ function stopDuelGame() {
     document.getElementById('duel-stop-btn').disabled = true;
     document.getElementById('duel-start-btn').textContent = '▶️ Start';
 
+    playSound('gameover');
+
     document.getElementById('duel-results').innerHTML = `
         <h3>⚔️ Beat the Clock Results</h3>
         <div class="results-grid">
@@ -969,6 +1288,10 @@ function stopDuelGame() {
         </div>
     `;
     document.getElementById('duel-results').classList.remove('hidden');
+
+    if (duelScore >= 200) createBigConfetti();
+    else if (duelScore >= 100) createConfetti();
+
     saveStats(duelAnswered, duelScore / 10, duelAnswered, duelScore);
     checkBadges();
 }
@@ -993,6 +1316,7 @@ function startEstGame() {
     document.getElementById('est-start-btn').textContent = '🔄 Restart';
     document.getElementById('est-results').classList.add('hidden');
 
+    playSound('click');
     generateEstQuestion();
 }
 
@@ -1024,6 +1348,7 @@ function checkEstAnswer() {
     if (isNaN(userAns)) {
         feedback.textContent = '⚠️ Enter a number!';
         feedback.className = 'feedback wrong';
+        playSound('wrong');
         return;
     }
 
@@ -1031,28 +1356,53 @@ function checkEstAnswer() {
     const pctOff = (diff / estAnswer) * 100;
     let points = 0;
 
-    if (pctOff === 0) { points = 100; feedback.textContent = `🎯 PERFECT! Exact answer: ${estAnswer} (+100pts)`; }
-    else if (pctOff <= 5) { points = 75; feedback.textContent = `🔥 Very close! Answer: ${estAnswer} | Off by ${pctOff.toFixed(1)}% (+75pts)`; }
-    else if (pctOff <= 10) { points = 50; feedback.textContent = `👍 Good! Answer: ${estAnswer} | Off by ${pctOff.toFixed(1)}% (+50pts)`; }
-    else if (pctOff <= 20) { points = 25; feedback.textContent = `🤏 Not bad. Answer: ${estAnswer} | Off by ${pctOff.toFixed(1)}% (+25pts)`; }
-    else { points = 0; feedback.textContent = `😅 Far off. Answer: ${estAnswer} | Off by ${pctOff.toFixed(1)}% (+0pts)`; }
+    if (pctOff === 0) {
+        points = 100;
+        feedback.textContent = `🎯 PERFECT! Exact answer: ${estAnswer} (+100pts)`;
+        createConfetti();
+    }
+    else if (pctOff <= 5) {
+        points = 75;
+        feedback.textContent = `🔥 Very close! Answer: ${estAnswer} | Off by ${pctOff.toFixed(1)}% (+75pts)`;
+    }
+    else if (pctOff <= 10) {
+        points = 50;
+        feedback.textContent = `👍 Good! Answer: ${estAnswer} | Off by ${pctOff.toFixed(1)}% (+50pts)`;
+    }
+    else if (pctOff <= 20) {
+        points = 25;
+        feedback.textContent = `🤏 Not bad. Answer: ${estAnswer} | Off by ${pctOff.toFixed(1)}% (+25pts)`;
+    }
+    else {
+        points = 0;
+        feedback.textContent = `😅 Far off. Answer: ${estAnswer} | Off by ${pctOff.toFixed(1)}% (+0pts)`;
+    }
 
     feedback.className = points >= 50 ? 'feedback correct' : 'feedback wrong';
+    playSound(points >= 50 ? 'correct' : 'wrong');
+
     estScore += points;
     addXP(points);
     document.getElementById('est-score').textContent = `Score: ${estScore}`;
 
     if (estRound >= estMaxRounds) {
         setTimeout(() => {
+            const grade = estScore >= 750 ? 'A+' : estScore >= 500 ? 'A' : estScore >= 300 ? 'B' : 'C';
+
             document.getElementById('est-results').innerHTML = `
                 <h3>🎯 Estimation Results</h3>
                 <div class="results-grid">
                     <div class="result-item"><span class="result-label">Total Score</span><span class="result-value">${estScore}</span></div>
                     <div class="result-item"><span class="result-label">Max Possible</span><span class="result-value">1000</span></div>
-                    <div class="result-item"><span class="result-label">Grade</span><span class="result-value">${estScore >= 750 ? 'A+' : estScore >= 500 ? 'A' : estScore >= 300 ? 'B' : 'C'}</span></div>
+                    <div class="result-item"><span class="result-label">Grade</span><span class="result-value">${grade}</span></div>
                 </div>
             `;
             document.getElementById('est-results').classList.remove('hidden');
+
+            if (estScore >= 750) createBigConfetti();
+            else if (estScore >= 500) createConfetti();
+
+            playSound('gameover');
             stopEstGame();
         }, 1500);
     } else {
@@ -1077,10 +1427,17 @@ function stopEstGame() {
 // ============================================================
 function addXP(amount) {
     playerXP += amount;
+    let leveledUp = false;
 
     while (playerXP >= playerLevel * XP_PER_LEVEL) {
         playerXP -= playerLevel * XP_PER_LEVEL;
         playerLevel++;
+        leveledUp = true;
+    }
+
+    if (leveledUp) {
+        playSound('levelup');
+        createBigConfetti();
     }
 
     updateXPDisplay();
@@ -1143,6 +1500,7 @@ function clearStats() {
         updateXPDisplay();
         loadStats();
         renderBadges();
+        playSound('click');
     }
 }
 
@@ -1170,12 +1528,19 @@ const ALL_BADGES = [
 function checkBadges() {
     const stats = JSON.parse(localStorage.getItem('mathStats') || '{}');
     const unlocked = JSON.parse(localStorage.getItem('mathBadges') || '[]');
+    let newBadge = false;
 
     ALL_BADGES.forEach(badge => {
         if (!unlocked.includes(badge.id) && badge.check(stats)) {
             unlocked.push(badge.id);
+            newBadge = true;
         }
     });
+
+    if (newBadge) {
+        playSound('badge');
+        createConfetti();
+    }
 
     localStorage.setItem('mathBadges', JSON.stringify(unlocked));
 }
