@@ -5,10 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🧮 Mental Math Trainer</title>
     <link rel="stylesheet" href="style.css">
-     <link rel="manifest" href="manifest.json">          
-    <meta name="theme-color" content="#f7971e"> 
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#f7971e">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- SEO & Social Sharing -->
+    <meta name="description" content="Sharpen your mental math skills with practice quizzes, games, tables up to 35, and exponent laws!">
+    <meta name="keywords" content="mental math, math practice, multiplication tables, math games, exponents">
+    <meta name="author" content="Your Name Here">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="🧮 Mental Math Trainer">
+    <meta property="og:description" content="Practice mental math with quizzes, 6 games, tables up to 35, and more!">
+    <meta property="og:image" content="icon-512.png">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="🧮 Mental Math Trainer">
+    <meta name="twitter:description" content="Practice mental math with quizzes, games, and tables!">
+    <meta name="twitter:image" content="icon-512.png">
 </head>
 <body>
+
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader-content">
+            <div class="loader-icon">🧮</div>
+            <h2>Mental Math Trainer</h2>
+            <div class="loader-bar">
+                <div class="loader-fill"></div>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- SOUND TOGGLE -->
+    <button id="sound-toggle" onclick="toggleSound()" class="sound-btn">🔊 Sound ON</button>
+
     <div class="container">
 
         <!-- HEADER -->
@@ -57,6 +94,11 @@
                 <span class="icon">🏆</span>
                 <h3>Badges</h3>
                 <p>Your achievements</p>
+            </a>
+            <a href="#" class="nav-card" onclick="showSection('changelog')">
+                <span class="icon">📋</span>
+                <h3>Update Log</h3>
+                <p>Version history & changes</p>
             </a>
         </nav>
 
@@ -212,10 +254,13 @@
                 </div>
             </div>
 
-            <!-- Search -->
-            <div class="table-search">
-                <input type="text" id="table-search-input" placeholder="🔍 Search a specific table (e.g., 17)"
-                       onkeyup="searchTable()">
+            <!-- Search & Print -->
+            <div class="table-actions">
+                <div class="table-search">
+                    <input type="text" id="table-search-input" placeholder="🔍 Search a specific table (e.g., 17)"
+                           onkeyup="searchTable()">
+                </div>
+                <button class="print-btn" onclick="printTables()">🖨️ Print Tables</button>
             </div>
 
             <div id="tables-container" class="tables-grid"></div>
@@ -310,7 +355,6 @@
             <h2>🎮 Math Games Arena</h2>
 
             <div class="games-grid">
-                <!-- Game 1: Speed Round -->
                 <div class="game-card" onclick="showSection('speed-game')">
                     <div class="game-icon">⚡</div>
                     <h3>Speed Round</h3>
@@ -318,7 +362,6 @@
                     <span class="game-difficulty easy-tag">Easy - Hard</span>
                 </div>
 
-                <!-- Game 2: Number Chain -->
                 <div class="game-card" onclick="showSection('chain-game')">
                     <div class="game-icon">🔗</div>
                     <h3>Number Chain</h3>
@@ -326,7 +369,6 @@
                     <span class="game-difficulty medium-tag">Medium</span>
                 </div>
 
-                <!-- Game 3: True or False -->
                 <div class="game-card" onclick="showSection('truefalse-game')">
                     <div class="game-icon">✅❌</div>
                     <h3>True or False</h3>
@@ -334,7 +376,6 @@
                     <span class="game-difficulty easy-tag">Easy</span>
                 </div>
 
-                <!-- Game 4: Missing Number -->
                 <div class="game-card" onclick="showSection('missing-game')">
                     <div class="game-icon">❓</div>
                     <h3>Missing Number</h3>
@@ -342,7 +383,6 @@
                     <span class="game-difficulty medium-tag">Medium</span>
                 </div>
 
-                <!-- Game 5: Math Duel -->
                 <div class="game-card" onclick="showSection('duel-game')">
                     <div class="game-icon">⚔️</div>
                     <h3>Beat the Clock</h3>
@@ -350,7 +390,6 @@
                     <span class="game-difficulty hard-tag">Hard</span>
                 </div>
 
-                <!-- Game 6: Estimation Game -->
                 <div class="game-card" onclick="showSection('estimation-game')">
                     <div class="game-icon">🎯</div>
                     <h3>Estimation Master</h3>
@@ -552,10 +591,296 @@
             <div id="badges-container" class="badges-grid"></div>
         </section>
 
+        <!-- ==================== CHANGELOG SECTION ==================== -->
+        <section id="changelog" class="section hidden">
+            <h2>📋 Update Log & Version History</h2>
+            <p class="changelog-subtitle">Track every update and improvement made to Mental Math Trainer</p>
+
+            <div class="current-version-badge">
+                <span class="version-number">v3.1.0</span>
+                <span class="version-label">Current Version</span>
+            </div>
+
+            <!-- Version Timeline -->
+            <div class="changelog-timeline">
+
+                <!-- v3.1.0 -->
+                <div class="version-block latest">
+                    <div class="version-header">
+                        <div class="version-tag">v3.1.0</div>
+                        <div class="version-title">Polish & UX Improvements</div>
+                        <div class="version-date">📅 16 September 2026</div>
+                        <span class="version-badge latest-badge">🟢 Latest</span>
+                    </div>
+                    <div class="commit-list">
+                        <div class="commit-item">
+                            <span class="commit-icon">🔊</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: add sound effects with toggle for correct, wrong, and level up</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                        <div class="commit-item">
+                            <span class="commit-icon">✨</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: add confetti animation on streaks and level ups</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                        <div class="commit-item">
+                            <span class="commit-icon">⏳</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: add loading screen with animated logo</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                        <div class="commit-item">
+                            <span class="commit-icon">🖨️</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: add print tables feature for offline study</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                        <div class="commit-item">
+                            <span class="commit-icon">⚠️</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: add exit warning when quiz is active</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                        <div class="commit-item">
+                            <span class="commit-icon">⌨️</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: add keyboard shortcuts info panel</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                        <div class="commit-item">
+                            <span class="commit-icon">🌐</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: add favicon and social media meta tags</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                        <div class="commit-item">
+                            <span class="commit-icon">💄</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">style: add smooth scroll, fade animations, footer, and button effects</code>
+                                <span class="commit-type style-type">style</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="version-summary">
+                        <div class="summary-stat added">✨ 7 Added</div>
+                        <div class="summary-stat changed">🔧 1 Changed</div>
+                        <div class="summary-stat fixed">🐛 0 Fixed</div>
+                    </div>
+                </div>
+
+                <!-- v3.0.0 -->
+                <div class="version-block">
+                    <div class="version-header">
+                        <div class="version-tag">v3.0.0</div>
+                        <div class="version-title">Update Log, Docs & PWA</div>
+                        <div class="version-date">📅 16 September 2026</div>
+                        <span class="version-badge major-badge">🔵 Major</span>
+                    </div>
+                    <div class="commit-list">
+                        <div class="commit-item">
+                            <span class="commit-icon">📱</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: add PWA support with manifest.json and service worker</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                        <div class="commit-item">
+                            <span class="commit-icon">📋</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: add in-app update log page with version timeline</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                        <div class="commit-item">
+                            <span class="commit-icon">📄</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">docs: add CHANGELOG.md and README.md</code>
+                                <span class="commit-type docs-type">docs</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="version-summary">
+                        <div class="summary-stat added">✨ 3 Added</div>
+                        <div class="summary-stat changed">🔧 1 Changed</div>
+                        <div class="summary-stat fixed">🐛 0 Fixed</div>
+                    </div>
+                </div>
+
+                <!-- v2.0.0 -->
+                <div class="version-block">
+                    <div class="version-header">
+                        <div class="version-tag">v2.0.0</div>
+                        <div class="version-title">Games, Exponents & Gamification</div>
+                        <div class="version-date">📅 16 September 2026</div>
+                        <span class="version-badge major-badge">🔵 Major</span>
+                    </div>
+                    <div class="commit-list">
+                        <div class="commit-item">
+                            <span class="commit-icon">🎮</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: add 6 math games (speed, chain, tf, missing, duel, estimation)</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                        <div class="commit-item">
+                            <span class="commit-icon">📐</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: add laws of exponents with practice mode</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                        <div class="commit-item">
+                            <span class="commit-icon">🏆</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: add XP/level system and 15 achievement badges</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                        <div class="commit-item">
+                            <span class="commit-icon">📊</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: extend tables to 35 with search and configurable grid</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                        <div class="commit-item">
+                            <span class="commit-icon">⏹️</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">feat: add stop quiz button and ESC shortcut</code>
+                                <span class="commit-type feat-type">feature</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="version-summary">
+                        <div class="summary-stat added">✨ 5 Added</div>
+                        <div class="summary-stat changed">🔧 1 Changed</div>
+                        <div class="summary-stat fixed">🐛 1 Fixed</div>
+                    </div>
+                </div>
+
+                <!-- v1.0.0 -->
+                <div class="version-block">
+                    <div class="version-header">
+                        <div class="version-tag">v1.0.0</div>
+                        <div class="version-title">Initial Release</div>
+                        <div class="version-date">📅 September 2026</div>
+                        <span class="version-badge initial-badge">🟣 Initial</span>
+                    </div>
+                    <div class="commit-list">
+                        <div class="commit-item">
+                            <span class="commit-icon">🚀</span>
+                            <div class="commit-info">
+                                <code class="commit-msg">init: project setup with practice mode, tables, scoring, and responsive UI</code>
+                                <span class="commit-type feat-type">init</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="version-summary">
+                        <div class="summary-stat added">✨ 7 Added</div>
+                        <div class="summary-stat changed">🔧 0 Changed</div>
+                        <div class="summary-stat fixed">🐛 0 Fixed</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Upcoming -->
+            <div class="upcoming-section">
+                <h3>🔮 Coming Soon - v4.0.0</h3>
+                <div class="upcoming-list">
+                    <div class="upcoming-item">🌙 Dark/Light theme toggle</div>
+                    <div class="upcoming-item">📊 Chart.js progress visualization</div>
+                    <div class="upcoming-item">🏅 Daily challenges with streak rewards</div>
+                    <div class="upcoming-item">🧮 Fractions & percentages practice</div>
+                    <div class="upcoming-item">🔢 Square roots & cube roots</div>
+                    <div class="upcoming-item">👥 Multiplayer mode</div>
+                </div>
+            </div>
+
+            <!-- Commit Convention Guide -->
+            <div class="commit-guide">
+                <h3>📝 Commit Message Convention</h3>
+                <div class="convention-grid">
+                    <div class="convention-item">
+                        <code>feat:</code>
+                        <span>New feature added</span>
+                    </div>
+                    <div class="convention-item">
+                        <code>fix:</code>
+                        <span>Bug fix</span>
+                    </div>
+                    <div class="convention-item">
+                        <code>style:</code>
+                        <span>UI/CSS changes</span>
+                    </div>
+                    <div class="convention-item">
+                        <code>docs:</code>
+                        <span>Documentation updates</span>
+                    </div>
+                    <div class="convention-item">
+                        <code>refactor:</code>
+                        <span>Code restructuring</span>
+                    </div>
+                    <div class="convention-item">
+                        <code>deploy:</code>
+                        <span>Deployment related</span>
+                    </div>
+                    <div class="convention-item">
+                        <code>perf:</code>
+                        <span>Performance improvement</span>
+                    </div>
+                    <div class="convention-item">
+                        <code>test:</code>
+                        <span>Testing related</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="app-footer">
+            <p>🧮 Mental Math Trainer v3.1.0</p>
+            <p>Made with ❤️ for math lovers</p>
+            <div class="footer-links">
+                <a href="https://github.com/YOUR_USERNAME/mental-math-trainer" target="_blank">📂 GitHub</a>
+                <span>•</span>
+                <a href="#" onclick="showSection('changelog')">📋 Changelog</a>
+                <span>•</span>
+                <a href="#" onclick="toggleShortcuts()">⌨️ Shortcuts</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- KEYBOARD SHORTCUTS PANEL -->
+    <button class="shortcuts-toggle" onclick="toggleShortcuts()">⌨️</button>
+    <div id="shortcuts-panel" class="shortcuts-panel hidden">
+        <h3>⌨️ Keyboard Shortcuts</h3>
+        <div class="shortcut-list">
+            <div class="shortcut-item">
+                <kbd>Enter</kbd>
+                <span>Submit answer</span>
+            </div>
+            <div class="shortcut-item">
+                <kbd>Escape</kbd>
+                <span>Stop any quiz or game</span>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
-     <script>
+
+    <!-- Service Worker Registration -->
+    <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js')
                 .then(reg => console.log('✅ Service Worker registered'))
@@ -565,297 +890,3 @@
 
 </body>
 </html>
-<!-- ==================== CHANGELOG SECTION ==================== -->
-<section id="changelog" class="section hidden">
-    <h2>📋 Update Log & Version History</h2>
-    <p class="changelog-subtitle">Track every update and improvement made to Mental Math Trainer</p>
-
-    <!-- Current Version Badge -->
-    <div class="current-version-badge">
-        <span class="version-number">v3.0.0</span>
-        <span class="version-label">Current Version</span>
-    </div>
-
-    <!-- Version Timeline -->
-    <div class="changelog-timeline">
-
-        <!-- v3.0.0 -->
-        <div class="version-block latest">
-            <div class="version-header">
-                <div class="version-tag">v3.0.0</div>
-                <div class="version-title">PWA & Update Log</div>
-                <div class="version-date">📅 January 2025</div>
-                <span class="version-badge latest-badge">🟢 Latest</span>
-            </div>
-
-            <div class="commit-list">
-                <div class="commit-item">
-                    <span class="commit-icon">✨</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add in-app update log page with version history</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">✨</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add PWA support with service worker & manifest</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">✨</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add offline functionality for all pages</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">📄</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">docs: add CHANGELOG.md and README.md</code>
-                        <span class="commit-type docs-type">docs</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">💄</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">style: update navigation with changelog link</code>
-                        <span class="commit-type style-type">style</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="version-summary">
-                <div class="summary-stat added">✨ 4 Added</div>
-                <div class="summary-stat changed">🔧 1 Changed</div>
-                <div class="summary-stat fixed">🐛 0 Fixed</div>
-            </div>
-        </div>
-
-        <!-- v2.0.0 -->
-        <div class="version-block">
-            <div class="version-header">
-                <div class="version-tag">v2.0.0</div>
-                <div class="version-title">Games, Exponents & Gamification</div>
-                <div class="version-date">📅 January 2025</div>
-                <span class="version-badge major-badge">🔵 Major</span>
-            </div>
-
-            <div class="commit-list">
-                <div class="commit-item">
-                    <span class="commit-icon">✨</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add laws of exponents section with 8 laws & practice mode</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">✨</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add stop quiz button to all game modes</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">✨</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: extend tables from 12 to 35 with search functionality</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">🎮</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add 6 math games (speed, chain, tf, missing, duel, estimation)</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">🏆</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add XP/level system and 15 achievement badges</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">✨</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add mixed mode and unlimited question mode</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">✨</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add configurable reference grid up to 35×35</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">💄</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">style: add game cards UI and back navigation buttons</code>
-                        <span class="commit-type style-type">style</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">🐛</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">fix: prevent quiz from running without stop option</code>
-                        <span class="commit-type fix-type">fix</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">⌨️</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add ESC key shortcut to stop any active game</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="version-summary">
-                <div class="summary-stat added">✨ 8 Added</div>
-                <div class="summary-stat changed">🔧 1 Changed</div>
-                <div class="summary-stat fixed">🐛 1 Fixed</div>
-            </div>
-        </div>
-
-        <!-- v1.0.0 -->
-        <div class="version-block">
-            <div class="version-header">
-                <div class="version-tag">v1.0.0</div>
-                <div class="version-title">Initial Release - Core Math Trainer</div>
-                <div class="version-date">📅 January 2025</div>
-                <span class="version-badge initial-badge">🟣 Initial</span>
-            </div>
-
-            <div class="commit-list">
-                <div class="commit-item">
-                    <span class="commit-icon">🚀</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">🚀 Initial commit - Mental Math Trainer</code>
-                        <span class="commit-type feat-type">init</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">✨</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add practice mode with 4 operations (+, -, ×, ÷)</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">✨</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add multiplication tables (1-12) and reference grid</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">✨</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add 3 difficulty levels (easy, medium, hard)</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">✨</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add timer and streak tracking system</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">✨</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">feat: add localStorage for persistent stats</code>
-                        <span class="commit-type feat-type">feature</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">💄</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">style: add dark gradient theme with responsive design</code>
-                        <span class="commit-type style-type">style</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">📱</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">style: add mobile responsive layout</code>
-                        <span class="commit-type style-type">style</span>
-                    </div>
-                </div>
-                <div class="commit-item">
-                    <span class="commit-icon">🌐</span>
-                    <div class="commit-info">
-                        <code class="commit-msg">deploy: connect GitHub repo to Vercel for auto-deployment</code>
-                        <span class="commit-type deploy-type">deploy</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="version-summary">
-                <div class="summary-stat added">✨ 7 Added</div>
-                <div class="summary-stat changed">🔧 0 Changed</div>
-                <div class="summary-stat fixed">🐛 0 Fixed</div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Upcoming -->
-    <div class="upcoming-section">
-        <h3>🔮 Coming Soon - v4.0.0</h3>
-        <div class="upcoming-list">
-            <div class="upcoming-item">🎵 Sound effects for correct/wrong answers</div>
-            <div class="upcoming-item">🌙 Dark/Light theme toggle</div>
-            <div class="upcoming-item">📊 Chart.js progress visualization</div>
-            <div class="upcoming-item">🏅 Daily challenges with streak rewards</div>
-            <div class="upcoming-item">🧮 Fractions & percentages practice</div>
-            <div class="upcoming-item">🔢 Square roots & cube roots</div>
-            <div class="upcoming-item">👥 Multiplayer mode</div>
-        </div>
-    </div>
-
-    <!-- Commit Convention Guide -->
-    <div class="commit-guide">
-        <h3>📝 Commit Message Convention</h3>
-        <div class="convention-grid">
-            <div class="convention-item">
-                <code>feat:</code>
-                <span>New feature added</span>
-            </div>
-            <div class="convention-item">
-                <code>fix:</code>
-                <span>Bug fix</span>
-            </div>
-            <div class="convention-item">
-                <code>style:</code>
-                <span>UI/CSS changes</span>
-            </div>
-            <div class="convention-item">
-                <code>docs:</code>
-                <span>Documentation updates</span>
-            </div>
-            <div class="convention-item">
-                <code>refactor:</code>
-                <span>Code restructuring</span>
-            </div>
-            <div class="convention-item">
-                <code>deploy:</code>
-                <span>Deployment related</span>
-            </div>
-            <div class="convention-item">
-                <code>perf:</code>
-                <span>Performance improvement</span>
-            </div>
-            <div class="convention-item">
-                <code>test:</code>
-                <span>Testing related</span>
-            </div>
-        </div>
-    </div>
-</section>

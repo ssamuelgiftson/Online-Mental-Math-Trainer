@@ -1,8 +1,17 @@
+/* ============================================================
+   MENTAL MATH TRAINER - v3.1.0
+   Complete Stylesheet
+   ============================================================ */
+
 /* ===== RESET & BASE ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -16,6 +25,118 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+}
+
+/* ===== LOADING SCREEN ===== */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-icon {
+    font-size: 4rem;
+    animation: loaderBounce 1s infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes loaderBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.loader-content h2 {
+    color: #ffd200;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.loader-bar {
+    width: 200px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 0 auto 15px;
+    overflow: hidden;
+}
+
+.loader-fill {
+    height: 100%;
+    width: 30%;
+    background: linear-gradient(90deg, #f7971e, #ffd200);
+    border-radius: 10px;
+    animation: loaderSlide 1.5s infinite;
+}
+
+@keyframes loaderSlide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(400%); }
+}
+
+.loader-content p {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* ===== SOUND TOGGLE ===== */
+.sound-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    z-index: 1000;
+    transition: all 0.2s;
+}
+
+.sound-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ===== CONFETTI ===== */
+.confetti-piece {
+    position: fixed;
+    top: -10px;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    z-index: 9999;
+    pointer-events: none;
+    animation: confettiFall linear forwards;
+}
+
+.confetti-piece.big {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
 }
 
 /* ===== HEADER ===== */
@@ -77,8 +198,8 @@ header p {
 /* ===== NAVIGATION CARDS ===== */
 .main-nav {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+    gap: 12px;
     margin-bottom: 30px;
 }
 
@@ -86,7 +207,7 @@ header p {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 16px;
-    padding: 25px 15px;
+    padding: 22px 12px;
     text-align: center;
     text-decoration: none;
     color: white;
@@ -97,7 +218,7 @@ header p {
 .nav-card:hover {
     background: rgba(255, 255, 255, 0.15);
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(247, 151, 30, 0.15);
 }
 
 .nav-card .icon {
@@ -109,12 +230,12 @@ header p {
 .nav-card h3 {
     margin-bottom: 4px;
     color: #ffd200;
-    font-size: 1rem;
+    font-size: 0.95rem;
 }
 
 .nav-card p {
     color: #aaa;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
 }
 
 /* ===== SECTIONS ===== */
@@ -124,6 +245,7 @@ header p {
     padding: 30px;
     margin-bottom: 30px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeInUp 0.4s ease;
 }
 
 .hidden {
@@ -134,6 +256,17 @@ header p {
     color: #ffd200;
     margin-bottom: 20px;
     font-size: 1.6rem;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ===== SETTINGS PANEL ===== */
@@ -223,7 +356,8 @@ header p {
     letter-spacing: 3px;
 }
 
-#answer-input, #speed-answer, #chain-answer, #expo-answer, #missing-answer, #duel-answer, #est-answer {
+#answer-input, #speed-answer, #chain-answer, #expo-answer,
+#missing-answer, #duel-answer, #est-answer {
     width: 220px;
     padding: 15px 20px;
     font-size: 1.5rem;
@@ -288,8 +422,12 @@ input::-webkit-inner-spin-button {
     color: white;
 }
 
-button:hover {
+button:hover:not(:disabled) {
     transform: scale(1.05);
+}
+
+button:active:not(:disabled) {
+    transform: scale(0.95) !important;
 }
 
 button:disabled {
@@ -396,7 +534,7 @@ button:disabled {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     align-items: flex-end;
 }
 
@@ -426,8 +564,17 @@ select option {
     color: white;
 }
 
-.table-search {
+.table-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.table-search {
+    flex: 1;
+    min-width: 200px;
 }
 
 .table-search input {
@@ -444,6 +591,22 @@ select option {
 
 .table-search input:focus {
     border-color: #ffd200;
+}
+
+.print-btn {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.print-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .tables-grid {
@@ -674,7 +837,7 @@ select option {
     color: white;
 }
 
-/* Speed Game Timer */
+/* Speed & Duel Timer */
 .speed-timer-bar, .duel-timer-bar {
     height: 12px;
     background: rgba(255, 255, 255, 0.1);
@@ -731,8 +894,9 @@ select option {
     color: #fff;
 }
 
-.tf-true-btn:hover { transform: scale(1.08); }
-.tf-false-btn:hover { transform: scale(1.08); }
+.tf-true-btn:hover, .tf-false-btn:hover {
+    transform: scale(1.08);
+}
 
 /* ===== STATS ===== */
 .stats-grid {
@@ -819,19 +983,7 @@ select option {
     font-size: 0.75rem;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
-    header h1 { font-size: 1.8rem; }
-    .question-text { font-size: 1.8rem; }
-    .settings-panel { flex-direction: column; }
-    .timer-bar { flex-direction: column; text-align: center; font-size: 0.9rem; }
-    .main-nav { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
-    .nav-card { padding: 18px 10px; }
-    .exponent-laws { grid-template-columns: 1fr; }
-    .law-formula { font-size: 1.1rem; }
-    .tf-buttons { flex-direction: column; align-items: center; }
-}
-/* ===== CHANGELOG SECTION ===== */
+/* ===== CHANGELOG ===== */
 .changelog-subtitle {
     color: #aaa;
     margin-bottom: 25px;
@@ -860,7 +1012,6 @@ select option {
     font-size: 0.85rem;
 }
 
-/* Timeline */
 .changelog-timeline {
     position: relative;
     padding-left: 30px;
@@ -877,7 +1028,6 @@ select option {
     border-radius: 10px;
 }
 
-/* Version Block */
 .version-block {
     position: relative;
     margin-bottom: 35px;
@@ -915,7 +1065,6 @@ select option {
     box-shadow: 0 0 10px rgba(168, 224, 99, 0.5);
 }
 
-/* Version Header */
 .version-header {
     display: flex;
     flex-wrap: wrap;
@@ -955,7 +1104,6 @@ select option {
 .major-badge { background: rgba(100, 149, 237, 0.15); color: #6495ed; }
 .initial-badge { background: rgba(186, 85, 211, 0.15); color: #ba55d3; }
 
-/* Commit List */
 .commit-list {
     display: flex;
     flex-direction: column;
@@ -1016,7 +1164,6 @@ select option {
 .docs-type { background: rgba(255, 210, 0, 0.15); color: #ffd200; }
 .deploy-type { background: rgba(186, 85, 211, 0.15); color: #ba55d3; }
 
-/* Version Summary */
 .version-summary {
     display: flex;
     flex-wrap: wrap;
@@ -1036,7 +1183,6 @@ select option {
 .summary-stat.changed { background: rgba(255, 210, 0, 0.1); color: #ffd200; }
 .summary-stat.fixed { background: rgba(255, 107, 107, 0.1); color: #ff6b6b; }
 
-/* Upcoming Section */
 .upcoming-section {
     margin-top: 35px;
     padding: 25px;
@@ -1065,7 +1211,6 @@ select option {
     border-left: 3px solid rgba(255, 210, 0, 0.3);
 }
 
-/* Commit Convention Guide */
 .commit-guide {
     margin-top: 30px;
     padding: 25px;
@@ -1107,10 +1252,157 @@ select option {
     font-size: 0.82rem;
 }
 
-/* ===== RESPONSIVE ADDITIONS ===== */
+/* ===== KEYBOARD SHORTCUTS ===== */
+.shortcuts-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(247, 151, 30, 0.9);
+    border: none;
+    color: #000;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+}
+
+.shortcuts-toggle:hover {
+    transform: scale(1.1);
+}
+
+.shortcuts-panel {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: rgba(15, 12, 41, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    padding: 20px;
+    z-index: 999;
+    min-width: 220px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.shortcuts-panel h3 {
+    color: #ffd200;
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+
+.shortcut-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.shortcut-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.shortcut-item kbd {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #ffd200;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: 60px;
+    text-align: center;
+}
+
+.shortcut-item span {
+    color: #aaa;
+    font-size: 0.85rem;
+}
+
+/* ===== FOOTER ===== */
+.app-footer {
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.app-footer p {
+    margin-bottom: 5px;
+}
+
+.footer-links {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #f7971e;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: #ffd200;
+}
+
+.footer-links span {
+    color: #444;
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 600px) {
-    .changelog-timeline {
-        padding-left: 20px;
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .question-text {
+        font-size: 1.8rem;
+    }
+
+    .settings-panel {
+        flex-direction: column;
+    }
+
+    .timer-bar {
+        flex-direction: column;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+    .main-nav {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 10px;
+    }
+
+    .nav-card {
+        padding: 15px 10px;
+    }
+
+    .nav-card .icon {
+        font-size: 1.8rem;
+    }
+
+    .exponent-laws {
+        grid-template-columns: 1fr;
+    }
+
+    .law-formula {
+        font-size: 1.1rem;
+    }
+
+    .tf-buttons {
+        flex-direction: column;
+        align-items: center;
     }
 
     .version-header {
@@ -1126,5 +1418,42 @@ select option {
 
     .version-block {
         padding: 18px;
+    }
+
+    .changelog-timeline {
+        padding-left: 20px;
+    }
+
+    .table-actions {
+        flex-direction: column;
+    }
+
+    .sound-btn {
+        top: 10px;
+        right: 10px;
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+    .shortcuts-toggle {
+        bottom: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .shortcuts-panel {
+        bottom: 65px;
+        right: 15px;
+        min-width: 190px;
+    }
+
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .badges-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     }
 }
