@@ -3,7 +3,7 @@
 //  Version 8 Cache - Forces fresh files
 // ============================================================
 
-const CACHE_NAME = 'math-trainer-v8';
+const CACHE_NAME = 'math-trainer-v9';
 
 const urlsToCache = [
     '/',
