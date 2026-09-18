@@ -1,11 +1,10 @@
 // ============================================================
-//  SERVICE WORKER - Mental Math Trainer v3.0.0
-//  Handles offline caching and app functionality
+//  SERVICE WORKER - Mental Math Trainer v3.2.0
+//  Version 8 Cache - Forces fresh files
 // ============================================================
 
-const CACHE_NAME = 'math-trainer-v3';
+const CACHE_NAME = 'math-trainer-v8';
 
-// All files to cache for offline use
 const urlsToCache = [
     '/',
     '/index.html',
@@ -16,13 +15,9 @@ const urlsToCache = [
     '/icon-512.png'
 ];
 
-// ============================================================
-//  INSTALL EVENT
-//  Downloads and caches all important files
-// ============================================================
+// INSTALL - Cache all files
 self.addEventListener('install', event => {
-    console.log('📦 Service Worker: Installing...');
-
+    console.log('📦 Service Worker: Installing v8...');
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
@@ -33,23 +28,17 @@ self.addEventListener('install', event => {
                 console.log('❌ Service Worker: Cache failed:', err);
             })
     );
-
-    // Activate immediately without waiting
+    // IMPORTANT: Activate immediately, don't wait
     self.skipWaiting();
 });
 
-// ============================================================
-//  ACTIVATE EVENT
-//  Cleans up old caches when a new version is available
-// ============================================================
+// ACTIVATE - Delete ALL old caches
 self.addEventListener('activate', event => {
-    console.log('🟢 Service Worker: Activated');
-
+    console.log('🟢 Service Worker: Activated v8');
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
                 cacheNames.map(cache => {
-                    // Delete old caches that don't match current version
                     if (cache !== CACHE_NAME) {
                         console.log('🗑️ Service Worker: Deleting old cache:', cache);
                         return caches.delete(cache);
@@ -58,79 +47,50 @@ self.addEventListener('activate', event => {
             );
         })
     );
-
-    // Take control of all pages immediately
+    // IMPORTANT: Take control immediately
     self.clients.claim();
 });
 
-// ============================================================
-//  FETCH EVENT
-//  Intercepts network requests
-//  Serves from cache if available, falls back to network
-// ============================================================
+// FETCH - Network First, then Cache
+// This ensures users always get the latest version
 self.addEventListener('fetch', event => {
-
     event.respondWith(
-        caches.match(event.request)
-            .then(cachedResponse => {
-
-                // If found in cache, return cached version
-                if (cachedResponse) {
-                    console.log('📂 Service Worker: Serving from cache:', event.request.url);
-                    return cachedResponse;
+        fetch(event.request)
+            .then(networkResponse => {
+                // Got fresh response from network
+                if (networkResponse && networkResponse.status === 200) {
+                    // Save it to cache for offline use
+                    const responseToCache = networkResponse.clone();
+                    caches.open(CACHE_NAME)
+                        .then(cache => {
+                            cache.put(event.request, responseToCache);
+                        });
                 }
-
-                // If not in cache, fetch from network
-                console.log('🌐 Service Worker: Fetching from network:', event.request.url);
-
-                return fetch(event.request)
-                    .then(networkResponse => {
-
-                        // Don't cache if not a valid response
-                        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-                            return networkResponse;
-                        }
-
-                        // Clone the response (can only be used once)
-                        const responseToCache = networkResponse.clone();
-
-                        // Cache the new resource for next time
-                        caches.open(CACHE_NAME)
-                            .then(cache => {
-                                cache.put(event.request, responseToCache);
-                            });
-
-                        return networkResponse;
-                    });
+                return networkResponse;
             })
-            .catch(err => {
-                console.log('⚠️ Service Worker: Fetch failed:', err);
-
-                // If both cache and network fail
-                // Return cached index.html for navigation requests
-                if (event.request.mode === 'navigate') {
-                    return caches.match('/index.html');
-                }
+            .catch(() => {
+                // Network failed, try cache (offline mode)
+                console.log('📂 Service Worker: Serving from cache (offline)');
+                return caches.match(event.request)
+                    .then(cachedResponse => {
+                        if (cachedResponse) {
+                            return cachedResponse;
+                        }
+                        // If nothing in cache either, return index.html
+                        if (event.request.mode === 'navigate') {
+                            return caches.match('/index.html');
+                        }
+                    });
             })
     );
 });
 
-// ============================================================
-//  MESSAGE EVENT
-//  Listen for messages from the main app
-//  Useful for triggering cache updates
-// ============================================================
+// Listen for update messages
 self.addEventListener('message', event => {
-
-    // Force update cache when app sends update message
     if (event.data && event.data.type === 'SKIP_WAITING') {
-        console.log('🔄 Service Worker: Skipping wait, activating new version');
         self.skipWaiting();
     }
-
-    // Clear all caches when app sends clear message
     if (event.data && event.data.type === 'CLEAR_CACHE') {
-        console.log('🗑️ Service Worker: Clearing all caches');
         caches.keys().then(cacheNames => {
             cacheNames.forEach(cache => caches.delete(cache));
         });
