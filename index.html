@@ -7,23 +7,15 @@
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#f7971e">
-
-    <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
     <link rel="apple-touch-icon" href="icon-192.png">
-
-    <!-- SEO & Social Sharing -->
     <meta name="description" content="Sharpen your mental math skills with practice quizzes, games, tables up to 35, and exponent laws!">
     <meta name="keywords" content="mental math, math practice, multiplication tables, math games, exponents">
     <meta name="author" content="Your Name Here">
-
-    <!-- Open Graph -->
     <meta property="og:title" content="🧮 Mental Math Trainer">
     <meta property="og:description" content="Practice mental math with quizzes, 6 games, tables up to 35, and more!">
     <meta property="og:image" content="icon-512.png">
     <meta property="og:type" content="website">
-
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="🧮 Mental Math Trainer">
     <meta name="twitter:description" content="Practice mental math with quizzes, games, and tables!">
@@ -36,9 +28,7 @@
         <div class="loader-content">
             <div class="loader-icon">🧮</div>
             <h2>Mental Math Trainer</h2>
-            <div class="loader-bar">
-                <div class="loader-fill"></div>
-            </div>
+            <div class="loader-bar"><div class="loader-fill"></div></div>
             <p>Loading...</p>
         </div>
     </div>
@@ -52,8 +42,6 @@
         <header>
             <h1>🧮 Mental Math Trainer</h1>
             <p>Sharpen your math skills with daily practice!</p>
-
-            <!-- STREAK DISPLAY -->
             <div class="streak-header">
                 <div class="streak-flame" id="streak-flame">
                     <span class="flame-icon" id="flame-icon">🔥</span>
@@ -61,7 +49,6 @@
                     <span class="streak-label">Day Streak</span>
                 </div>
             </div>
-
             <div class="xp-bar-container">
                 <div class="xp-info">
                     <span id="player-level">🏅 Level 1</span>
@@ -177,30 +164,12 @@
                 <div id="results" class="results hidden">
                     <h3>🏆 Session Results</h3>
                     <div class="results-grid">
-                        <div class="result-item correct-bg">
-                            <span class="result-label">✅ Correct</span>
-                            <span id="total-correct" class="result-value">0</span>
-                        </div>
-                        <div class="result-item wrong-bg">
-                            <span class="result-label">❌ Wrong</span>
-                            <span id="total-wrong" class="result-value">0</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="result-label">🎯 Accuracy</span>
-                            <span id="accuracy" class="result-value">0%</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="result-label">🔥 Best Streak</span>
-                            <span id="best-streak" class="result-value">0</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="result-label">⏱️ Time</span>
-                            <span id="total-time" class="result-value">0:00</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="result-label">⚡ XP Earned</span>
-                            <span id="xp-earned" class="result-value">0</span>
-                        </div>
+                        <div class="result-item correct-bg"><span class="result-label">✅ Correct</span><span id="total-correct" class="result-value">0</span></div>
+                        <div class="result-item wrong-bg"><span class="result-label">❌ Wrong</span><span id="total-wrong" class="result-value">0</span></div>
+                        <div class="result-item"><span class="result-label">🎯 Accuracy</span><span id="accuracy" class="result-value">0%</span></div>
+                        <div class="result-item"><span class="result-label">🔥 Best Streak</span><span id="best-streak" class="result-value">0</span></div>
+                        <div class="result-item"><span class="result-label">⏱️ Time</span><span id="total-time" class="result-value">0:00</span></div>
+                        <div class="result-item"><span class="result-label">⚡ XP Earned</span><span id="xp-earned" class="result-value">0</span></div>
                     </div>
                     <button class="btn-start" onclick="startQuiz()" style="margin-top:20px;">🔄 Play Again</button>
                 </div>
@@ -214,45 +183,25 @@
                 <div class="control-group">
                     <label>From:</label>
                     <select id="table-start" onchange="generateTables()">
-                        <option value="1">1</option>
-                        <option value="2" selected>2</option>
-                        <option value="6">6</option>
-                        <option value="11">11</option>
-                        <option value="16">16</option>
-                        <option value="21">21</option>
-                        <option value="26">26</option>
-                        <option value="31">31</option>
+                        <option value="1">1</option><option value="2" selected>2</option><option value="6">6</option><option value="11">11</option><option value="16">16</option><option value="21">21</option><option value="26">26</option><option value="31">31</option>
                     </select>
                 </div>
                 <div class="control-group">
                     <label>To:</label>
                     <select id="table-end" onchange="generateTables()">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="12" selected>12</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                        <option value="25">25</option>
-                        <option value="30">30</option>
-                        <option value="35">35</option>
+                        <option value="5">5</option><option value="10">10</option><option value="12" selected>12</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="35">35</option>
                     </select>
                 </div>
                 <div class="control-group">
                     <label>Multiply up to:</label>
                     <select id="table-multiplier" onchange="generateTables()">
-                        <option value="10">× 10</option>
-                        <option value="12" selected>× 12</option>
-                        <option value="15">× 15</option>
-                        <option value="20">× 20</option>
+                        <option value="10">× 10</option><option value="12" selected>× 12</option><option value="15">× 15</option><option value="20">× 20</option>
                     </select>
                 </div>
                 <div class="control-group">
                     <label>Type:</label>
                     <select id="table-type" onchange="generateTables()">
-                        <option value="multiplication">✖️ Multiplication</option>
-                        <option value="addition">➕ Addition</option>
-                        <option value="subtraction">➖ Subtraction</option>
-                        <option value="division">➗ Division</option>
+                        <option value="multiplication">✖️ Multiplication</option><option value="addition">➕ Addition</option><option value="subtraction">➖ Subtraction</option><option value="division">➗ Division</option>
                     </select>
                 </div>
             </div>
@@ -267,11 +216,7 @@
             <div class="ref-grid-controls">
                 <label>Grid Size:</label>
                 <select id="grid-size" onchange="generateReferenceGrid()">
-                    <option value="12">12 × 12</option>
-                    <option value="15">15 × 15</option>
-                    <option value="20">20 × 20</option>
-                    <option value="25">25 × 25</option>
-                    <option value="35">35 × 35</option>
+                    <option value="12">12 × 12</option><option value="15">15 × 15</option><option value="20">20 × 20</option><option value="25">25 × 25</option><option value="35">35 × 35</option>
                 </select>
             </div>
             <div id="reference-grid" class="reference-grid-container"></div>
@@ -281,46 +226,14 @@
         <section id="exponents" class="section hidden">
             <h2>📐 Laws of Exponents</h2>
             <div class="exponent-laws">
-                <div class="law-card">
-                    <h3>Product Rule</h3>
-                    <div class="law-formula">a<sup>m</sup> × a<sup>n</sup> = a<sup>m+n</sup></div>
-                    <p class="law-example">Example: 2³ × 2⁴ = 2⁷ = 128</p>
-                </div>
-                <div class="law-card">
-                    <h3>Quotient Rule</h3>
-                    <div class="law-formula">a<sup>m</sup> ÷ a<sup>n</sup> = a<sup>m−n</sup></div>
-                    <p class="law-example">Example: 5⁶ ÷ 5² = 5⁴ = 625</p>
-                </div>
-                <div class="law-card">
-                    <h3>Power Rule</h3>
-                    <div class="law-formula">(a<sup>m</sup>)<sup>n</sup> = a<sup>m×n</sup></div>
-                    <p class="law-example">Example: (3²)³ = 3⁶ = 729</p>
-                </div>
-                <div class="law-card">
-                    <h3>Zero Exponent</h3>
-                    <div class="law-formula">a<sup>0</sup> = 1</div>
-                    <p class="law-example">Example: 99⁰ = 1</p>
-                </div>
-                <div class="law-card">
-                    <h3>Negative Exponent</h3>
-                    <div class="law-formula">a<sup>−n</sup> = 1 / a<sup>n</sup></div>
-                    <p class="law-example">Example: 2⁻³ = 1/8 = 0.125</p>
-                </div>
-                <div class="law-card">
-                    <h3>Power of Product</h3>
-                    <div class="law-formula">(ab)<sup>n</sup> = a<sup>n</sup> × b<sup>n</sup></div>
-                    <p class="law-example">Example: (2×3)² = 4 × 9 = 36</p>
-                </div>
-                <div class="law-card">
-                    <h3>Power of Quotient</h3>
-                    <div class="law-formula">(a/b)<sup>n</sup> = a<sup>n</sup> / b<sup>n</sup></div>
-                    <p class="law-example">Example: (4/2)³ = 64/8 = 8</p>
-                </div>
-                <div class="law-card">
-                    <h3>Fractional Exponent</h3>
-                    <div class="law-formula">a<sup>1/n</sup> = ⁿ√a</div>
-                    <p class="law-example">Example: 27<sup>1/3</sup> = ³√27 = 3</p>
-                </div>
+                <div class="law-card"><h3>Product Rule</h3><div class="law-formula">a<sup>m</sup> × a<sup>n</sup> = a<sup>m+n</sup></div><p class="law-example">Example: 2³ × 2⁴ = 2⁷ = 128</p></div>
+                <div class="law-card"><h3>Quotient Rule</h3><div class="law-formula">a<sup>m</sup> ÷ a<sup>n</sup> = a<sup>m−n</sup></div><p class="law-example">Example: 5⁶ ÷ 5² = 5⁴ = 625</p></div>
+                <div class="law-card"><h3>Power Rule</h3><div class="law-formula">(a<sup>m</sup>)<sup>n</sup> = a<sup>m×n</sup></div><p class="law-example">Example: (3²)³ = 3⁶ = 729</p></div>
+                <div class="law-card"><h3>Zero Exponent</h3><div class="law-formula">a<sup>0</sup> = 1</div><p class="law-example">Example: 99⁰ = 1</p></div>
+                <div class="law-card"><h3>Negative Exponent</h3><div class="law-formula">a<sup>−n</sup> = 1 / a<sup>n</sup></div><p class="law-example">Example: 2⁻³ = 1/8 = 0.125</p></div>
+                <div class="law-card"><h3>Power of Product</h3><div class="law-formula">(ab)<sup>n</sup> = a<sup>n</sup> × b<sup>n</sup></div><p class="law-example">Example: (2×3)² = 4 × 9 = 36</p></div>
+                <div class="law-card"><h3>Power of Quotient</h3><div class="law-formula">(a/b)<sup>n</sup> = a<sup>n</sup> / b<sup>n</sup></div><p class="law-example">Example: (4/2)³ = 64/8 = 8</p></div>
+                <div class="law-card"><h3>Fractional Exponent</h3><div class="law-formula">a<sup>1/n</sup> = ⁿ√a</div><p class="law-example">Example: 27<sup>1/3</sup> = ³√27 = 3</p></div>
             </div>
             <h3 style="margin-top:30px; color:#ffd200;">📋 Powers Reference Table</h3>
             <div id="powers-table" class="reference-grid-container"></div>
@@ -344,42 +257,12 @@
         <section id="games" class="section hidden">
             <h2>🎮 Math Games Arena</h2>
             <div class="games-grid">
-                <div class="game-card" onclick="showSection('speed-game')">
-                    <div class="game-icon">⚡</div>
-                    <h3>Speed Round</h3>
-                    <p>Answer as many questions as possible in 60 seconds!</p>
-                    <span class="game-difficulty easy-tag">Easy - Hard</span>
-                </div>
-                <div class="game-card" onclick="showSection('chain-game')">
-                    <div class="game-icon">🔗</div>
-                    <h3>Number Chain</h3>
-                    <p>Each answer becomes part of the next question!</p>
-                    <span class="game-difficulty medium-tag">Medium</span>
-                </div>
-                <div class="game-card" onclick="showSection('truefalse-game')">
-                    <div class="game-icon">✅❌</div>
-                    <h3>True or False</h3>
-                    <p>Is the equation correct? Quick reaction time!</p>
-                    <span class="game-difficulty easy-tag">Easy</span>
-                </div>
-                <div class="game-card" onclick="showSection('missing-game')">
-                    <div class="game-icon">❓</div>
-                    <h3>Missing Number</h3>
-                    <p>Find the missing number in the equation!</p>
-                    <span class="game-difficulty medium-tag">Medium</span>
-                </div>
-                <div class="game-card" onclick="showSection('duel-game')">
-                    <div class="game-icon">⚔️</div>
-                    <h3>Beat the Clock</h3>
-                    <p>Each correct answer adds time. Wrong = lose time!</p>
-                    <span class="game-difficulty hard-tag">Hard</span>
-                </div>
-                <div class="game-card" onclick="showSection('estimation-game')">
-                    <div class="game-icon">🎯</div>
-                    <h3>Estimation Master</h3>
-                    <p>Estimate the answer! Get points for being close!</p>
-                    <span class="game-difficulty medium-tag">Medium</span>
-                </div>
+                <div class="game-card" onclick="showSection('speed-game')"><div class="game-icon">⚡</div><h3>Speed Round</h3><p>Answer as many questions as possible in 60 seconds!</p><span class="game-difficulty easy-tag">Easy - Hard</span></div>
+                <div class="game-card" onclick="showSection('chain-game')"><div class="game-icon">🔗</div><h3>Number Chain</h3><p>Each answer becomes part of the next question!</p><span class="game-difficulty medium-tag">Medium</span></div>
+                <div class="game-card" onclick="showSection('truefalse-game')"><div class="game-icon">✅❌</div><h3>True or False</h3><p>Is the equation correct? Quick reaction time!</p><span class="game-difficulty easy-tag">Easy</span></div>
+                <div class="game-card" onclick="showSection('missing-game')"><div class="game-icon">❓</div><h3>Missing Number</h3><p>Find the missing number in the equation!</p><span class="game-difficulty medium-tag">Medium</span></div>
+                <div class="game-card" onclick="showSection('duel-game')"><div class="game-icon">⚔️</div><h3>Beat the Clock</h3><p>Each correct answer adds time. Wrong = lose time!</p><span class="game-difficulty hard-tag">Hard</span></div>
+                <div class="game-card" onclick="showSection('estimation-game')"><div class="game-icon">🎯</div><h3>Estimation Master</h3><p>Estimate the answer! Get points for being close!</p><span class="game-difficulty medium-tag">Medium</span></div>
             </div>
         </section>
 
@@ -389,18 +272,11 @@
             <h2>⚡ Speed Round - 60 Seconds!</h2>
             <div class="game-play-area">
                 <div class="speed-timer-bar"><div class="speed-timer-fill" id="speed-timer-fill"></div></div>
-                <div class="speed-stats">
-                    <span id="speed-time-left">⏱️ 60s</span>
-                    <span id="speed-score">Score: 0</span>
-                    <span id="speed-correct-count">✅ 0</span>
-                </div>
+                <div class="speed-stats"><span id="speed-time-left">⏱️ 60s</span><span id="speed-score">Score: 0</span><span id="speed-correct-count">✅ 0</span></div>
                 <div class="question-card">
                     <p id="speed-question" class="question-text">Press Start!</p>
                     <input type="number" id="speed-answer" placeholder="Answer..." onkeypress="if(event.key==='Enter') checkSpeedAnswer()" disabled>
-                    <div class="quiz-buttons">
-                        <button class="btn-start" id="speed-start-btn" onclick="startSpeedGame()">▶️ Start</button>
-                        <button class="btn-stop" id="speed-stop-btn" onclick="stopSpeedGame()" disabled>⏹️ Stop</button>
-                    </div>
+                    <div class="quiz-buttons"><button class="btn-start" id="speed-start-btn" onclick="startSpeedGame()">▶️ Start</button><button class="btn-stop" id="speed-stop-btn" onclick="stopSpeedGame()" disabled>⏹️ Stop</button></div>
                 </div>
                 <div id="speed-feedback" class="feedback"></div>
                 <div id="speed-results" class="results hidden"></div>
@@ -413,18 +289,11 @@
             <h2>🔗 Number Chain</h2>
             <p class="game-description">The answer to each question becomes the starting number of the next!</p>
             <div class="game-play-area">
-                <div class="chain-info">
-                    <span id="chain-length">Chain: 0 🔗</span>
-                    <span id="chain-score">Score: 0</span>
-                </div>
+                <div class="chain-info"><span id="chain-length">Chain: 0 🔗</span><span id="chain-score">Score: 0</span></div>
                 <div class="question-card">
                     <p id="chain-question" class="question-text">Press Start!</p>
                     <input type="number" id="chain-answer" placeholder="Answer..." onkeypress="if(event.key==='Enter') checkChainAnswer()" disabled>
-                    <div class="quiz-buttons">
-                        <button class="btn-start" id="chain-start-btn" onclick="startChainGame()">▶️ Start</button>
-                        <button class="btn-stop" id="chain-stop-btn" onclick="stopChainGame()" disabled>⏹️ Stop</button>
-                        <button class="btn-submit" id="chain-submit-btn" onclick="checkChainAnswer()" disabled>✅ Submit</button>
-                    </div>
+                    <div class="quiz-buttons"><button class="btn-start" id="chain-start-btn" onclick="startChainGame()">▶️ Start</button><button class="btn-stop" id="chain-stop-btn" onclick="stopChainGame()" disabled>⏹️ Stop</button><button class="btn-submit" id="chain-submit-btn" onclick="checkChainAnswer()" disabled>✅ Submit</button></div>
                 </div>
                 <div id="chain-feedback" class="feedback"></div>
             </div>
@@ -436,21 +305,11 @@
             <h2>✅❌ True or False</h2>
             <p class="game-description">Is this equation correct? React fast!</p>
             <div class="game-play-area">
-                <div class="tf-stats">
-                    <span id="tf-score">Score: 0</span>
-                    <span id="tf-lives">❤️❤️❤️</span>
-                    <span id="tf-streak-display">🔥 Streak: 0</span>
-                </div>
+                <div class="tf-stats"><span id="tf-score">Score: 0</span><span id="tf-lives">❤️❤️❤️</span><span id="tf-streak-display">🔥 Streak: 0</span></div>
                 <div class="question-card">
                     <p id="tf-question" class="question-text">Press Start!</p>
-                    <div class="tf-buttons" id="tf-buttons" style="display:none;">
-                        <button class="tf-true-btn" onclick="checkTFAnswer(true)">✅ TRUE</button>
-                        <button class="tf-false-btn" onclick="checkTFAnswer(false)">❌ FALSE</button>
-                    </div>
-                    <div class="quiz-buttons">
-                        <button class="btn-start" id="tf-start-btn" onclick="startTFGame()">▶️ Start</button>
-                        <button class="btn-stop" id="tf-stop-btn" onclick="stopTFGame()" disabled>⏹️ Stop</button>
-                    </div>
+                    <div class="tf-buttons" id="tf-buttons" style="display:none;"><button class="tf-true-btn" onclick="checkTFAnswer(true)">✅ TRUE</button><button class="tf-false-btn" onclick="checkTFAnswer(false)">❌ FALSE</button></div>
+                    <div class="quiz-buttons"><button class="btn-start" id="tf-start-btn" onclick="startTFGame()">▶️ Start</button><button class="btn-stop" id="tf-stop-btn" onclick="stopTFGame()" disabled>⏹️ Stop</button></div>
                 </div>
                 <div id="tf-feedback" class="feedback"></div>
             </div>
@@ -462,18 +321,11 @@
             <h2>❓ Missing Number</h2>
             <p class="game-description">Find the missing number to complete the equation!</p>
             <div class="game-play-area">
-                <div class="missing-stats">
-                    <span id="missing-score">Score: 0</span>
-                    <span id="missing-streak">🔥 Streak: 0</span>
-                </div>
+                <div class="missing-stats"><span id="missing-score">Score: 0</span><span id="missing-streak">🔥 Streak: 0</span></div>
                 <div class="question-card">
                     <p id="missing-question" class="question-text">Press Start!</p>
                     <input type="number" id="missing-answer" placeholder="Missing number..." onkeypress="if(event.key==='Enter') checkMissingAnswer()" disabled>
-                    <div class="quiz-buttons">
-                        <button class="btn-start" id="missing-start-btn" onclick="startMissingGame()">▶️ Start</button>
-                        <button class="btn-stop" id="missing-stop-btn" onclick="stopMissingGame()" disabled>⏹️ Stop</button>
-                        <button class="btn-submit" id="missing-submit-btn" onclick="checkMissingAnswer()" disabled>✅ Submit</button>
-                    </div>
+                    <div class="quiz-buttons"><button class="btn-start" id="missing-start-btn" onclick="startMissingGame()">▶️ Start</button><button class="btn-stop" id="missing-stop-btn" onclick="stopMissingGame()" disabled>⏹️ Stop</button><button class="btn-submit" id="missing-submit-btn" onclick="checkMissingAnswer()" disabled>✅ Submit</button></div>
                 </div>
                 <div id="missing-feedback" class="feedback"></div>
             </div>
@@ -486,18 +338,11 @@
             <p class="game-description">Start with 30 seconds. Correct = +3s, Wrong = -5s. Survive!</p>
             <div class="game-play-area">
                 <div class="duel-timer-bar"><div class="duel-timer-fill" id="duel-timer-fill"></div></div>
-                <div class="duel-stats">
-                    <span id="duel-time">⏱️ 30.0s</span>
-                    <span id="duel-score">Score: 0</span>
-                    <span id="duel-answered">Answered: 0</span>
-                </div>
+                <div class="duel-stats"><span id="duel-time">⏱️ 30.0s</span><span id="duel-score">Score: 0</span><span id="duel-answered">Answered: 0</span></div>
                 <div class="question-card">
                     <p id="duel-question" class="question-text">Press Start!</p>
                     <input type="number" id="duel-answer" placeholder="Answer..." onkeypress="if(event.key==='Enter') checkDuelAnswer()" disabled>
-                    <div class="quiz-buttons">
-                        <button class="btn-start" id="duel-start-btn" onclick="startDuelGame()">▶️ Start</button>
-                        <button class="btn-stop" id="duel-stop-btn" onclick="stopDuelGame()" disabled>⏹️ Stop</button>
-                    </div>
+                    <div class="quiz-buttons"><button class="btn-start" id="duel-start-btn" onclick="startDuelGame()">▶️ Start</button><button class="btn-stop" id="duel-stop-btn" onclick="stopDuelGame()" disabled>⏹️ Stop</button></div>
                 </div>
                 <div id="duel-feedback" class="feedback"></div>
                 <div id="duel-results" class="results hidden"></div>
@@ -510,18 +355,11 @@
             <h2>🎯 Estimation Master</h2>
             <p class="game-description">Estimate the answer! Points based on how close you are!</p>
             <div class="game-play-area">
-                <div class="est-stats">
-                    <span id="est-score">Score: 0</span>
-                    <span id="est-round">Round: 0 / 10</span>
-                </div>
+                <div class="est-stats"><span id="est-score">Score: 0</span><span id="est-round">Round: 0 / 10</span></div>
                 <div class="question-card">
                     <p id="est-question" class="question-text">Press Start!</p>
                     <input type="number" id="est-answer" placeholder="Your estimate..." onkeypress="if(event.key==='Enter') checkEstAnswer()" disabled>
-                    <div class="quiz-buttons">
-                        <button class="btn-start" id="est-start-btn" onclick="startEstGame()">▶️ Start</button>
-                        <button class="btn-stop" id="est-stop-btn" onclick="stopEstGame()" disabled>⏹️ Stop</button>
-                        <button class="btn-submit" id="est-submit-btn" onclick="checkEstAnswer()" disabled>✅ Submit</button>
-                    </div>
+                    <div class="quiz-buttons"><button class="btn-start" id="est-start-btn" onclick="startEstGame()">▶️ Start</button><button class="btn-stop" id="est-stop-btn" onclick="stopEstGame()" disabled>⏹️ Stop</button><button class="btn-submit" id="est-submit-btn" onclick="checkEstAnswer()" disabled>✅ Submit</button></div>
                 </div>
                 <div id="est-feedback" class="feedback"></div>
                 <div id="est-results" class="results hidden"></div>
@@ -532,38 +370,17 @@
         <section id="streak" class="section hidden">
             <h2>🔥 Daily Login Streak</h2>
             <div class="streak-hero">
-                <div class="streak-hero-flame">
-                    <span id="streak-hero-icon">🔥</span>
-                    <span class="streak-hero-count" id="streak-hero-count">0</span>
-                </div>
+                <div class="streak-hero-flame"><span id="streak-hero-icon">🔥</span><span class="streak-hero-count" id="streak-hero-count">0</span></div>
                 <h3 id="streak-hero-label">Day Streak</h3>
                 <p id="streak-hero-message">Login every day to build your streak!</p>
             </div>
             <div class="streak-stats-grid">
-                <div class="streak-stat-card">
-                    <h4>🔥 Current Streak</h4>
-                    <span id="streak-current">0 days</span>
-                </div>
-                <div class="streak-stat-card">
-                    <h4>🏆 Best Streak</h4>
-                    <span id="streak-best">0 days</span>
-                </div>
-                <div class="streak-stat-card">
-                    <h4>📅 Total Logins</h4>
-                    <span id="streak-total-logins">0 days</span>
-                </div>
-                <div class="streak-stat-card">
-                    <h4>⚡ Today's Bonus XP</h4>
-                    <span id="streak-bonus-xp">0 XP</span>
-                </div>
-                <div class="streak-stat-card">
-                    <h4>🛡️ Streak Freezes</h4>
-                    <span id="streak-freezes">0 left</span>
-                </div>
-                <div class="streak-stat-card">
-                    <h4>📆 Last Login</h4>
-                    <span id="streak-last-login">Never</span>
-                </div>
+                <div class="streak-stat-card"><h4>🔥 Current Streak</h4><span id="streak-current">0 days</span></div>
+                <div class="streak-stat-card"><h4>🏆 Best Streak</h4><span id="streak-best">0 days</span></div>
+                <div class="streak-stat-card"><h4>📅 Total Logins</h4><span id="streak-total-logins">0 days</span></div>
+                <div class="streak-stat-card"><h4>⚡ Today's Bonus XP</h4><span id="streak-bonus-xp">0 XP</span></div>
+                <div class="streak-stat-card"><h4>🛡️ Streak Freezes</h4><span id="streak-freezes">0 left</span></div>
+                <div class="streak-stat-card"><h4>📆 Last Login</h4><span id="streak-last-login">Never</span></div>
             </div>
             <h3 style="color:#ffd200; margin-top:30px; margin-bottom:15px;">🎯 Streak Milestones</h3>
             <div class="milestones-grid" id="milestones-container"></div>
@@ -603,11 +420,15 @@
         <section id="changelog" class="section hidden">
             <h2>📋 Update Log & Version History</h2>
             <p class="changelog-subtitle">Track every update and improvement made to Mental Math Trainer</p>
+
             <div class="current-version-badge">
                 <span class="version-number">v3.2.0</span>
                 <span class="version-label">Current Version</span>
             </div>
+
             <div class="changelog-timeline">
+
+                <!-- v3.2.0 -->
                 <div class="version-block latest">
                     <div class="version-header">
                         <div class="version-tag">v3.2.0</div>
@@ -619,7 +440,7 @@
                         <div class="commit-item"><span class="commit-icon">🔥</span><div class="commit-info"><code class="commit-msg">feat: add daily login streak system with calendar and milestones</code><span class="commit-type feat-type">feature</span></div></div>
                         <div class="commit-item"><span class="commit-icon">🛡️</span><div class="commit-info"><code class="commit-msg">feat: add streak freeze protection earned through milestones</code><span class="commit-type feat-type">feature</span></div></div>
                         <div class="commit-item"><span class="commit-icon">🏆</span><div class="commit-info"><code class="commit-msg">feat: add 9 streak achievement badges</code><span class="commit-type feat-type">feature</span></div></div>
-                        <div class="commit-item"><span class="commit-icon">💬</span><div class="commit-info"><code class="commit-msg">feat: add streak login popup with welcome states</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">💬</span><div class="commit-info"><code class="commit-msg">feat: add streak login popup with welcome, continue, freeze, and broken states</code><span class="commit-type feat-type">feature</span></div></div>
                     </div>
                     <div class="version-summary">
                         <div class="summary-stat added">✨ 4 Added</div>
@@ -627,6 +448,8 @@
                         <div class="summary-stat fixed">🐛 0 Fixed</div>
                     </div>
                 </div>
+
+                <!-- v3.1.0 -->
                 <div class="version-block">
                     <div class="version-header">
                         <div class="version-tag">v3.1.0</div>
@@ -635,9 +458,14 @@
                         <span class="version-badge major-badge">🔵 Minor</span>
                     </div>
                     <div class="commit-list">
-                        <div class="commit-item"><span class="commit-icon">🔊</span><div class="commit-info"><code class="commit-msg">feat: add sound effects with toggle</code><span class="commit-type feat-type">feature</span></div></div>
-                        <div class="commit-item"><span class="commit-icon">✨</span><div class="commit-info"><code class="commit-msg">feat: add confetti animations</code><span class="commit-type feat-type">feature</span></div></div>
-                        <div class="commit-item"><span class="commit-icon">⏳</span><div class="commit-info"><code class="commit-msg">feat: add loading screen, print tables, exit warning, shortcuts</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">🔊</span><div class="commit-info"><code class="commit-msg">feat: add sound effects with ON/OFF toggle</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">✨</span><div class="commit-info"><code class="commit-msg">feat: add confetti animations on streaks and level ups</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">⏳</span><div class="commit-info"><code class="commit-msg">feat: add loading screen with animated logo</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">🖨️</span><div class="commit-info"><code class="commit-msg">feat: add print tables feature for offline study</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">⚠️</span><div class="commit-info"><code class="commit-msg">feat: add exit warning when quiz is active</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">⌨️</span><div class="commit-info"><code class="commit-msg">feat: add keyboard shortcuts info panel</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">🌐</span><div class="commit-info"><code class="commit-msg">feat: add favicon and social media meta tags</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">💄</span><div class="commit-info"><code class="commit-msg">style: add smooth scroll, fade animations, footer, and button effects</code><span class="commit-type style-type">style</span></div></div>
                     </div>
                     <div class="version-summary">
                         <div class="summary-stat added">✨ 7 Added</div>
@@ -645,6 +473,8 @@
                         <div class="summary-stat fixed">🐛 0 Fixed</div>
                     </div>
                 </div>
+
+                <!-- v3.0.0 -->
                 <div class="version-block">
                     <div class="version-header">
                         <div class="version-tag">v3.0.0</div>
@@ -653,15 +483,19 @@
                         <span class="version-badge major-badge">🔵 Major</span>
                     </div>
                     <div class="commit-list">
-                        <div class="commit-item"><span class="commit-icon">📱</span><div class="commit-info"><code class="commit-msg">feat: add PWA support with manifest and service worker</code><span class="commit-type feat-type">feature</span></div></div>
-                        <div class="commit-item"><span class="commit-icon">📋</span><div class="commit-info"><code class="commit-msg">feat: add in-app update log and documentation</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">📱</span><div class="commit-info"><code class="commit-msg">feat: add PWA support with manifest.json and service worker</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">📋</span><div class="commit-info"><code class="commit-msg">feat: add in-app update log page with version timeline</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">📄</span><div class="commit-info"><code class="commit-msg">docs: add CHANGELOG.md and README.md</code><span class="commit-type docs-type">docs</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">🔌</span><div class="commit-info"><code class="commit-msg">feat: add offline functionality with service worker caching</code><span class="commit-type feat-type">feature</span></div></div>
                     </div>
                     <div class="version-summary">
-                        <div class="summary-stat added">✨ 3 Added</div>
+                        <div class="summary-stat added">✨ 4 Added</div>
                         <div class="summary-stat changed">🔧 1 Changed</div>
                         <div class="summary-stat fixed">🐛 0 Fixed</div>
                     </div>
                 </div>
+
+                <!-- v2.0.0 -->
                 <div class="version-block">
                     <div class="version-header">
                         <div class="version-tag">v2.0.0</div>
@@ -670,23 +504,37 @@
                         <span class="version-badge major-badge">🔵 Major</span>
                     </div>
                     <div class="commit-list">
-                        <div class="commit-item"><span class="commit-icon">🎮</span><div class="commit-info"><code class="commit-msg">feat: add 6 games, exponents, XP system, badges, tables to 35</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">🎮</span><div class="commit-info"><code class="commit-msg">feat: add 6 math games (speed, chain, tf, missing, duel, estimation)</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">📐</span><div class="commit-info"><code class="commit-msg">feat: add laws of exponents section with 8 laws and practice mode</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">🏆</span><div class="commit-info"><code class="commit-msg">feat: add XP/level system and 15 achievement badges</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">📊</span><div class="commit-info"><code class="commit-msg">feat: extend tables to 35 with search and configurable grid up to 35x35</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">⏹️</span><div class="commit-info"><code class="commit-msg">feat: add stop quiz button and ESC keyboard shortcut</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">🔀</span><div class="commit-info"><code class="commit-msg">feat: add mixed operation mode and unlimited question mode</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">🐛</span><div class="commit-info"><code class="commit-msg">fix: prevent quiz from running without stop option</code><span class="commit-type fix-type">fix</span></div></div>
                     </div>
                     <div class="version-summary">
-                        <div class="summary-stat added">✨ 8 Added</div>
+                        <div class="summary-stat added">✨ 6 Added</div>
                         <div class="summary-stat changed">🔧 1 Changed</div>
                         <div class="summary-stat fixed">🐛 1 Fixed</div>
                     </div>
                 </div>
+
+                <!-- v1.0.0 -->
                 <div class="version-block">
                     <div class="version-header">
                         <div class="version-tag">v1.0.0</div>
-                        <div class="version-title">Initial Release</div>
+                        <div class="version-title">Initial Release - Core Math Trainer</div>
                         <div class="version-date">📅 September 2026</div>
                         <span class="version-badge initial-badge">🟣 Initial</span>
                     </div>
                     <div class="commit-list">
-                        <div class="commit-item"><span class="commit-icon">🚀</span><div class="commit-info"><code class="commit-msg">init: project setup with practice, tables, scoring, responsive UI</code><span class="commit-type feat-type">init</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">🚀</span><div class="commit-info"><code class="commit-msg">🚀 init: project setup - Mental Math Trainer</code><span class="commit-type feat-type">init</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">✨</span><div class="commit-info"><code class="commit-msg">feat: add practice mode with 4 operations (+, -, ×, ÷)</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">📊</span><div class="commit-info"><code class="commit-msg">feat: add multiplication tables (1-12) and 12x12 reference grid</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">🎯</span><div class="commit-info"><code class="commit-msg">feat: add 3 difficulty levels, timer, scoring, and streak tracking</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">💾</span><div class="commit-info"><code class="commit-msg">feat: add localStorage for persistent stats</code><span class="commit-type feat-type">feature</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">💄</span><div class="commit-info"><code class="commit-msg">style: add dark gradient theme with responsive mobile layout</code><span class="commit-type style-type">style</span></div></div>
+                        <div class="commit-item"><span class="commit-icon">🌐</span><div class="commit-info"><code class="commit-msg">deploy: site live on Vercel with auto-deployment from GitHub</code><span class="commit-type deploy-type">deploy</span></div></div>
                     </div>
                     <div class="version-summary">
                         <div class="summary-stat added">✨ 7 Added</div>
@@ -694,15 +542,34 @@
                         <div class="summary-stat fixed">🐛 0 Fixed</div>
                     </div>
                 </div>
+
             </div>
+
+            <!-- Upcoming -->
             <div class="upcoming-section">
                 <h3>🔮 Coming Soon - v4.0.0</h3>
                 <div class="upcoming-list">
                     <div class="upcoming-item">🌙 Dark/Light theme toggle</div>
                     <div class="upcoming-item">📊 Chart.js progress visualization</div>
+                    <div class="upcoming-item">🏅 Daily challenges with streak rewards</div>
                     <div class="upcoming-item">🧮 Fractions & percentages practice</div>
                     <div class="upcoming-item">🔢 Square roots & cube roots</div>
                     <div class="upcoming-item">👥 Multiplayer mode</div>
+                </div>
+            </div>
+
+            <!-- Commit Convention Guide -->
+            <div class="commit-guide">
+                <h3>📝 Commit Message Convention</h3>
+                <div class="convention-grid">
+                    <div class="convention-item"><code>feat:</code><span>New feature added</span></div>
+                    <div class="convention-item"><code>fix:</code><span>Bug fix</span></div>
+                    <div class="convention-item"><code>style:</code><span>UI/CSS changes</span></div>
+                    <div class="convention-item"><code>docs:</code><span>Documentation updates</span></div>
+                    <div class="convention-item"><code>refactor:</code><span>Code restructuring</span></div>
+                    <div class="convention-item"><code>deploy:</code><span>Deployment related</span></div>
+                    <div class="convention-item"><code>perf:</code><span>Performance improvement</span></div>
+                    <div class="convention-item"><code>test:</code><span>Testing related</span></div>
                 </div>
             </div>
         </section>
@@ -729,10 +596,7 @@
             <div class="streak-popup-icon" id="streak-popup-icon">🔥</div>
             <h2 id="streak-popup-title">Welcome Back!</h2>
             <p id="streak-popup-message">Your streak is growing!</p>
-            <div class="streak-popup-count">
-                <span id="streak-popup-count">0</span>
-                <span>Day Streak</span>
-            </div>
+            <div class="streak-popup-count"><span id="streak-popup-count">0</span><span>Day Streak</span></div>
             <div id="streak-popup-reward" class="streak-popup-reward"></div>
             <button class="btn-start" onclick="closeStreakPopup()">🎯 Let's Practice!</button>
         </div>
