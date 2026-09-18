@@ -3,7 +3,7 @@
 A web app to practice and improve your mental math skills with
 interactive quizzes, math games, reference tables, and more!
 
-🌐 **Live Website:** [mental-math-trainer.vercel.app](https://mental-math-trainer.vercel.app)
+🌐 **Live Website:** https://online-mental-math-trainer.vercel.app/
 
 ---
 
